@@ -2,10 +2,13 @@
 
 .App {
   min-height: 100vh;
-  display: flex;
-  background-image: url("./background.png");
-  background-position: center;
-  background-size: cover;
+  /* display: flex; */
+  background-image: url("./background3.jpg");
+  background-size: 1080px;
+
+  /* background-position: center;
+  background-size: cover; */
+  /* background-color: cornsilk; */
 }
 
 ::-webkit-scrollbar {

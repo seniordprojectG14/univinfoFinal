@@ -7,10 +7,8 @@ const mongoose = require("mongoose");
         type: Date,
         default: new Date(),
     },
-    typeofpost: String,
     username: String,
-    latL: Number,
-    lngL: Number,
+    
     
 })
 

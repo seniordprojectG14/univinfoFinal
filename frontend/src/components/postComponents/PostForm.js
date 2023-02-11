@@ -34,6 +34,7 @@ const PostForm = ({ currentId, setCurrentId, user, setUser}) => {
     const fileSelected = event => {
       const file = event.target.files
       setImage(file)
+      console.log(JSON.stringify(file) + "image"); 
     }
 
       
@@ -48,14 +49,12 @@ const PostForm = ({ currentId, setCurrentId, user, setUser}) => {
       };
       console.log("submitting");
 
-      
+      console.log("here");
          const formdata = new FormData();
         
          for ( let i = 0; i < image?.length; i++ ) {
           formdata.append( "imagecropped", image[ i ], image[ i ].name );
         }
-        console.log(JSON.stringify(image) + "formdata pics");
-        formdata.append("len", image?.length);
         formdata.append("address", postData.address)
         formdata.append("description", postData.description)
         formdata.append("username", user?.username)

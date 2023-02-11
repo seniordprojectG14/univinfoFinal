@@ -1,15 +1,20 @@
 //import express from 'express';
-const express = require('express');
-const aws = require("aws-sdk");
-const multer = require("multer");
-const multerS3 = require("multer-s3");
+// const express = require('express');
+import express from 'express';
+import aws from 'aws-sdk';
+import multer from 'multer'
+import multerS3 from 'multer-s3'
+// const aws = require("aws-sdk");
+// const multer = require("multer");
+// const multerS3 = require("multer-s3");
 
 
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 
-const Postmodel = require("../models/postModel");
-
+// const Postmodel = require("../models/postModel");
+import Postmodel from '../models/postModel.js';
 
 const router = express.Router();
 
@@ -39,8 +44,8 @@ const s3 = new aws.S3({
       }),
     });
 
-
-module.exports.getPosts = async (req, res) => { 
+export const getPosts = async (req, res) => { 
+// module.exports.getPosts = async (req, res) => { 
     try {
         const Messages = await Postmodel.find();
                 
@@ -50,7 +55,9 @@ module.exports.getPosts = async (req, res) => {
     }
 }
 
-module.exports.getPost = async (req, res) => { 
+export const getPost  = async (req, res) => { 
+
+// module.exports.getPost = async (req, res) => { 
     const { id } = req.params;
 
     try {
@@ -63,8 +70,8 @@ module.exports.getPost = async (req, res) => {
 }
 
 
-
-module.exports.createPost = async (req, res) => {
+export const createPost = async (req, res) => {
+// module.exports.createPost = async (req, res) => {
   // let fileList = req.files,
   // fileLocation;
     let len = req.body.len
@@ -74,27 +81,18 @@ module.exports.createPost = async (req, res) => {
           return res.status(400).json({ success: false, message: err.message });
     try {
         let fileArray = req.files,
-					fileLocation;
-        
+        fileLocation;
+      
         const address = req.body.address
         const description = req.body.description
         const username = req.body.username
         const galleryImgLocationArray = [];
-				for ( let i = 0; i < fileArray?.length; i++ ) {
+				for ( let i = 0; i < fileArray.length; i++ ) {
 					fileLocation = fileArray[ i ].location;
+					// console.log( 'filenm', fileLocation );
+                    // console.log( 'filearray', JSON.stringify(fileArray) );
 					galleryImgLocationArray.push( fileLocation )
 				}
-
-  Geocode.setLanguage("en");
-  Geocode.setApiKey("AIzaSyBBoDTa2K0ql0d3ssnlMEYXdBvQLI6_LqA");
-  Geocode.fromAddress(address).then(
-    async (response) => {
-      const { lat, lng } = response.results[0].geometry.location;
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
   
 
 
@@ -104,8 +102,6 @@ module.exports.createPost = async (req, res) => {
             address: address,
             description: description,
             username: username,
-            latL: lat,
-            lngL: lng,
         });
 
     } catch (error) {
@@ -114,7 +110,8 @@ module.exports.createPost = async (req, res) => {
 });
 };
 
-module.exports.deletePost = async (req, res) => {
+export const deletePost = async (req, res) => {
+// module.exports.deletePost = async (req, res) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
@@ -122,6 +119,18 @@ module.exports.deletePost = async (req, res) => {
     await Postmodel.findByIdAndRemove(id);
 
     res.json({ message: "Post deleted successfully." });
+}
+
+export const likePost = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+  
+  const post = await PostMessage.findById(id);
+
+  const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+  
+  res.json(updatedPost);
 }
 
 /*export const updatePost = async (req, res) => {

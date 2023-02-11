@@ -1,6 +1,9 @@
-const asyncHandler = require("express-async-handler");
-const User = require("../models/userModel");
-const generateToken = require("../config/generateToken");
+// const asyncHandler = require("express-async-handler");
+import asyncHandler from "express-async-handler"
+import User from '../models/userModel.js'
+// const User = require("../models/userModel");
+import generateToken from '../config/generateToken.js';
+// const generateToken = require("../config/generateToken");
 
 //@description     Get or Search all users
 //@route           GET /api/user?search=
@@ -81,5 +84,5 @@ const authUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid username or Password");
   }
 });
-
-module.exports = { allUsers, registerUser, authUser };
+export {allUsers, registerUser, authUser};
+// module.exports = { allUsers, registerUser, authUser };

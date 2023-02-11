@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, DELETE} from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, DELETE, LIKE} from '../constants/actionTypes';
 import axios from 'axios';
 import * as api from '../api/univIndex.js';
 
@@ -40,6 +40,15 @@ export const getUsers = () => async (dispatch) => {
     
 
     dispatch({ type: FETCH_ALL, payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const likePost = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.likePost(id);
+
+    dispatch({ type: LIKE, payload: data });
   } catch (error) {
     console.log(error.message);
   }

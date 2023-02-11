@@ -6,11 +6,14 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import useStyles from './styles.js';
 import Geocode from "react-geocode";
+import { likePost, deletePost } from '../../actions/posts';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 
 
 
 const PostItem = ({ post, setCurrentId, user, setUser,proplist }) => {
   const classstyles = useStyles();
+  const dispatch = useDispatch();
   const [lat, setLat] = React.useState('');
   const [lng, setLng] = React.useState('');
   useEffect(() => {
@@ -63,6 +66,7 @@ const PostItem = ({ post, setCurrentId, user, setUser,proplist }) => {
           <p>description: {post.description}</p>
         </div>
         <div className={classes.actions}>
+        <Button size="small" color="primary" onClick={() => dispatch(likePost(post._id))}><ThumbUpAltIcon fontSize="small" /> Like {post.likeCount} </Button>
         <Button>Chat</Button>
         <p variant="body2">{moment(post.createdAt).fromNow()}</p>
        

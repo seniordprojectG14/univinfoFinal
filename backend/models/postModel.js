@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from 'mongoose';
     const PostModel = new mongoose.Schema({
     address: String,
     photos: [String],
@@ -9,9 +10,14 @@ const mongoose = require("mongoose");
     },
     typeofpost: String,
     username: String,
-    latL: Number,
-    lngL: Number,
+    likeCount: {
+        type: Number,
+        default: 0,
+    },
     
 })
 
-module.exports = mongoose.model("PostModel", PostModel);
+var Postmodel = mongoose.model('PostMessage', PostModel);
+// module.exports = mongoose.model("PostModel", PostModel);
+
+export default Postmodel;

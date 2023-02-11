@@ -1,17 +1,13 @@
 {
-  "name": "chat-app",
+  "name": "mern-stack-api",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "node backend/server.js",
-    "server": "nodemon backend/server.js"
+    "start": "nodemon backend/server.js"
   },
-  "keywords": [
-    "mern",
-    "chat-app"
-  ],
-  "author": "Piyush Agarwal",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/abort-controller": "^3.178.0",

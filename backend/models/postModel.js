@@ -14,6 +14,8 @@ import mongoose from 'mongoose';
         type: Number,
         default: 0,
     },
+    postListDisLikeUsernames: [String],
+    postListLikeUsernames: [String],
     
 })
 

@@ -84,6 +84,7 @@ export const createPost = async (req, res) => {
         fileLocation;
       
         const address = req.body.address
+        console.log(address);
         const description = req.body.description
         const username = req.body.username
         const galleryImgLocationArray = [];
@@ -111,14 +112,13 @@ export const createPost = async (req, res) => {
 };
 
 export const deletePost = async (req, res) => {
-// module.exports.deletePost = async (req, res) => {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+  console.log("here");
+  await Postmodel.findByIdAndRemove(id);
 
-    await Postmodel.findByIdAndRemove(id);
-
-    res.json({ message: "Post deleted successfully." });
+  res.json({ message: "Post deleted successfully." });
 }
 
 export const likePost = async (req, res) => {
@@ -126,13 +126,172 @@ export const likePost = async (req, res) => {
 
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
   
-  const post = await PostMessage.findById(id);
+  const post = await Postmodel.findById(id);
 
-  const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+  const updatedPost = await Postmodel.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
   
   res.json(updatedPost);
 }
 
+
+
+export const dislikePost = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+  
+  const post = await Postmodel.findById(id);
+
+  const updatedPost = await Postmodel.findByIdAndUpdate(id, { likeCount: post.likeCount - 1 }, { new: true });
+  
+  res.json(updatedPost);
+}
+const arrayWithout = (item ,elist)=>{
+  
+  elist.filter(function (letter) {
+  return letter !== item;
+})}
+
+export const addUsernameDisLikes = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const username = req.body.username;
+    console.log("addUsernameDisLikes");
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+  const post = await Postmodel.findById(id);
+  //post.postListLikeUsernames = arrayWithout(username, postListLikeUsernames);
+  const updatedPost = await Postmodel.findByIdAndUpdate(id, { $push: { postListDisLikeUsernames: username }}, { new: true });
+  
+  res.json(updatedPost);
+    
+  } catch (error) {
+    return res.status(500).send({ error: error.message });
+  }
+};
+
+
+//post.postListLikeUsernames = arrayWithout(username, postListLikeUsernames);
+export const subUsernameLikes = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const username = req.body.username;
+    console.log(`Trying to remove ${username} from dislikes for post with id ${id}`);
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+    const post = await Postmodel.findByIdAndUpdate(
+      id,
+      { $pull: { postListLikeUsernames: username } },
+      { new: true }
+    );
+    res.json(post);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ error: error.message });
+  }
+};
+
+
+
+export const subUsernameDisLikes = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const username = req.body.username;
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+  // const post = await Postmodel.findById(id);
+  // post.postListDisLikeUsernames = post.postListDisLikeUsernames.filter(user => user !== username);
+  // await post.save();
+  const post = await Postmodel.findByIdAndUpdate(
+    id,
+    { $pull: { postListDisLikeUsernames: username } },
+    { new: true }
+  );
+  res.json(post);
+
+ 
+    
+  } catch (error) {
+    return res.status(500).send({ error: error.message });
+  }
+};
+
+export const addUsernameLikes = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const username = req.body.username;
+    console.log(username + "username");
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+    const post = await Postmodel.findById(id);
+    // post.postListDisLikeUsernames = arrayWithout(username, postListDisLikeUsernames);
+    const updatedPost = await Postmodel.findByIdAndUpdate(id, { $push: { postListLikeUsernames: username }}, { new: true });
+    res.json(updatedPost);
+  } catch (error) {
+    return res.status(500).send({ error: error.message });
+  }
+};
+
+// export const addUsername = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const username = req.body.username;
+//   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+//   const post = await Postmodel.findById(id);
+//     post.postListLikeUsernames.push(username);
+//     await post.save();
+//   } catch (error) {
+//     return res.status(500).send({ error: error.message });
+//   }
+// };
+
+export const takeUsernameDisLikes = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+
+    const post = await Postmodel.findById(id);
+
+    const username = req.body.username;
+    console.log(username + "username");
+
+    if (!username) return res.status(400).send({ error: 'Username is required' });
+
+    post.postListDisLikeUsernames.push(username);
+    await post.save();
+
+    return res.send({ message: 'Username added successfully' });
+  } catch (error) {
+    return res.status(500).send({ error: error.message });
+  }
+};
+export const fetchPostById  = async (req, res) => { 
+  const { id } = req.params;
+
+  try {
+    const post = await Postmodel.findById(id);
+        
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+// export const addUsername = async (req, res) => {
+//   try {
+//     console.log(req);
+//     const { id } = req.params;
+//     // console.log(id +" id")
+//     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+//     const post = await Postmodel.findById(id);
+//     // console.log(JSON.stringify(post));
+//       const username = req.body.username
+//       console.log(username?.username + "usernamee");
+//       post.postListUsernames.push(username);
+//       await post.save();
+//       console.log("here");
+
+//       return res.send({ message: 'Username added successfully' });
+//   } catch (error) {
+//       return res.status(500).send({ error: error.message });
+//   }
+// };
 /*export const updatePost = async (req, res) => {
     const { id } = req.params;
     const { title, selectedFile, discription, address} = req.body;

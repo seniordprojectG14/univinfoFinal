@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 <ul className={classes.list}>
   {posts?.map((post) => {
      return(
-       <PostChain  post={post}  setCurrentId={setCurrentId} />
+       <PostChain  post={post}  setCurrentId={setCurrentId} user={user}/>
    );
   })}
 </ul>

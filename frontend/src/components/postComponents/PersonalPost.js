@@ -19,12 +19,11 @@ import { makeStyles } from '@material-ui/core/styles';
   
  
 
-const handleOnSubmit = (e) =>{
-  e.preventDefault();
-  console.log(post._id, " post id");
-  dispatch(deletePost({id: post._id}));
-
-}
+  const handleOnSubmit = (e) =>{
+    e.preventDefault();
+    console.log(post._id, " post id");
+    dispatch(deletePost({id: post._id}));
+  }
 
 return (
   <li className={classes.item}>

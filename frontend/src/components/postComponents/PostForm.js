@@ -58,11 +58,13 @@ const PostForm = ({ currentId, setCurrentId, user, setUser}) => {
         formdata.append("address", postData.address)
         formdata.append("description", postData.description)
         formdata.append("username", user?.username)
+        console.log(JSON.stringify(formdata?.address) + "formdata");
          const {data} = await axios.post("/posts", formdata, { headers: {
 					'accept': 'application/json',
 					'Content-Type': 'multipart/form-data'
 				}})
-        console.log(JSON.stringify(data) + "data")
+        console.log(JSON.stringify(formdata) + "formdata");
+        console.log(JSON.stringify(data) + "dataaaa")
         
       if (currentId === 0) {
         

@@ -8,8 +8,8 @@ const mongoose = require("mongoose");
         default: new Date(),
     },
     username: String,
+    original_poster: String,
     
-    
-})
+    })
 
 module.exports = mongoose.model("PostModel", PostModel);

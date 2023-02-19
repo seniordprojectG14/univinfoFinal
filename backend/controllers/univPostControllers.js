@@ -79,6 +79,7 @@ module.exports.createPost = async (req, res) => {
         const address = req.body.address
         const description = req.body.description
         const username = req.body.username
+        const original_poster = req.body.original_poster
         const galleryImgLocationArray = [];
 				for ( let i = 0; i < fileArray?.length; i++ ) {
 					fileLocation = fileArray[ i ].location;
@@ -90,8 +91,9 @@ module.exports.createPost = async (req, res) => {
             address: address,
             description: description,
             username: username,
+            original_poster: original_poster,
         });
-
+        
     } catch (error) {
       res.status(409).json({data: data});
     }

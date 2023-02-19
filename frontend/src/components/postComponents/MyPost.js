@@ -16,7 +16,8 @@ const MyPost = ({ currentId,setCurrentId, user, setUser }) => {
   useEffect(() => {
     posts.map((post) => {
       console.log("here");
-      console.log("Username" + JSON.stringify(user?.username));
+      console.log("Username: " + JSON.stringify(user?.username));
+      /*console.log(post?.original_poster);*/
         if(post?.username === user?.username){
           setCounter(true);    
     }

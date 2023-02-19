@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import classes from './NewPost.module.css';
-
+import Switch from '@mui/material/Switch';
 
 
 import{ useSelector } from 'react-redux';
@@ -16,7 +16,7 @@ import axios from 'axios';
 
 const PostForm = ({ currentId, setCurrentId, user, setUser}) => {
     const post = useSelector((state) => (currentId ? state.posts.find((description) => description._id === currentId) : null));
-    const [postData, setPostData] = useState({address: '', photos: '', description: '', username: ''});
+    const [postData, setPostData] = useState({address: '', photos: '', description: '', username: '', original_poster: ''});
     const [image, setImage] = React.useState(null);
 
     
@@ -27,7 +27,7 @@ const PostForm = ({ currentId, setCurrentId, user, setUser}) => {
    
     const clear = () => {
       setCurrentId(0);
-      setPostData({address: '', photos: '', description: '', username: ''});
+      setPostData({address: '', photos: '', description: '', username: '', original_poster: ''});
     };
   
  
@@ -58,11 +58,18 @@ const PostForm = ({ currentId, setCurrentId, user, setUser}) => {
         console.log(JSON.stringify(postData.address) + "postData.address");
         console.log(JSON.stringify(postData.description) + "postData.description");
         console.log(JSON.stringify(user?.username) + "user?.username");
-       
+        
+
         formdata.append("len", image?.length);
         formdata.append("address", postData.address)
         formdata.append("description", postData.description)
+        if (postData.original_poster === ""){
+          formdata.append("original_poster", user?.username)
+        } else{
+          formdata.append("original_poster", postData.original_poster)
+        }
         formdata.append("username", user?.username)
+        
          const {data} = await axios.post("/posts", formdata, { headers: {
 					'accept': 'application/json',
 					'Content-Type': 'multipart/form-data'
@@ -106,9 +113,14 @@ const PostForm = ({ currentId, setCurrentId, user, setUser}) => {
     <textarea id='description'  rows='5' value={postData.description} onChange={(e) => setPostData({ ...postData, description: e.target.value })}></textarea>
   </div>
   <div className={classes.actions}>
+    <button onClick={(e) => setPostData({ ...postData, original_poster: "Anonymous user"})}>Add Post anonymously</button>
+  </div>
+  <div className={classes.actions}>
     <button>Add post</button>
   </div>
 </form>
     );
 }
+
+
 export default PostForm;

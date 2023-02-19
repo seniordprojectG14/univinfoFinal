@@ -58,7 +58,7 @@ const PostItem = ({ post, setCurrentId, user, setUser,proplist }) => {
         </div>
     
     
-        <Typography variant="body2" color="textSecondary" component="h2">username:{post.username}</Typography>
+        <Typography variant="body2" color="textSecondary" component="h2">username:{post.original_poster}</Typography>
             </div>
           <p>description: {post.description}</p>
         </div>

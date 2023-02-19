@@ -16,7 +16,7 @@ import mongoose from 'mongoose';
     },
     postListDisLikeUsernames: [String],
     postListLikeUsernames: [String],
-    
+    original_poster: String,
 })
 
 var Postmodel = mongoose.model('PostMessage', PostModel);

@@ -23,7 +23,7 @@ const NewPost = ({ currentId, setCurrentId, user, setUser }) => {
   
   const post = useSelector((state) => (currentId ? state.posts.find((description) => description._id === currentId) : null));
 
-  const [postData, setPostData] = useState({selectedFile: '', description: '', username: ''});
+  const [postData, setPostData] = useState({selectedFile: '', description: '', username: '', original_poster: ''});
 
   const [username, setUserName] = useState("");
   useEffect(async () => {
@@ -43,7 +43,7 @@ const NewPost = ({ currentId, setCurrentId, user, setUser }) => {
     return (
       <Paper className={classes.paper}>
         <Typography variant="h6" align="center">
-          Please Sign IIn to create your own memories and like other's memories.
+          Please sign in to create your own memories and like other's memories.
         </Typography>
       </Paper>
     );

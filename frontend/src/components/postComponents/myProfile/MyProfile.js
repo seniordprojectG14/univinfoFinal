@@ -3,20 +3,27 @@ import classes from './PostList.module.css';
 import { Button, Paper,Typography } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
+
 import { useSelector } from 'react-redux';
+
+
+
 
 
 
 const MyProfile = ({ currentId,setCurrentId, user, setUser }) => {
 
 
-  const [username, setUserName] = useState("");
+
+
+  const [username, setUserName,PhoneNumber,NickName] = useState("");
   useEffect(async () => {
     setUserName(
       await JSON.parse(localStorage.getItem("userInfo")
       )
     );
   }, []);
+
 
   if (!username) {
     return (
@@ -27,8 +34,9 @@ const MyProfile = ({ currentId,setCurrentId, user, setUser }) => {
       </Paper>
     );
   }
-  
-  
+ 
+ 
+
 
 return (
     <form className={classes.form}>
@@ -36,12 +44,25 @@ return (
       <label htmlFor='title'>username: </label>
       <input type='text' id='username' value={username.username} onChange={(e) => setUserName({ ...username.username, username: e.target.value })}/>
       <Button>update</Button>
+
+
+      <label htmlFor='title'>NikeName: </label>
+      <input type='text' id='NikeName'/>
+      <Button>update</Button>
+
+
+      <label htmlFor='title'>PhoneNumber: </label>
+      <input type='text' id='PhoneNumber' />
+      <Button>update</Button>
     </div>
   </form>
-      
+ 
+     
 );
 }
 
-  
+
+ 
+
 
 export default MyProfile;

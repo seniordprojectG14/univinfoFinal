@@ -61,56 +61,6 @@ const Navbar = (props) => {
   const personAsObjectAgain = JSON.parse(stringifiedPerson);
 
   return (
-    // <header className={classes.header}>
-    //   <div className={classes.logo}>univinfo</div>
-    // <nav>
-    //   <ul>
-    //     <li>
-    //       <Link to="/Blog">Post Page</Link>
-    //     </li>
-    //     <li>
-    //       <Link to="/NewPost">Add Post</Link>
-    //     </li>
-    //     <li>
-    //       <Link to="/MyPost">My Post</Link>
-    //     </li>
-    //     <li>
-    //       <Link to="/Chats">Chat</Link>
-    //     </li>
-    //     <li>
-    //       <Link to="/Map">Map</Link>
-    //     </li>
-    //     <li>
-    //       <Link to="/MyProfile">MyProfile</Link>
-    //     </li>
-    // <li>
-    //     {username ? (
-    //       <div className={classess.profile}>
-    //         {/* <Avatar className={classess.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
-    //     <Typography className={classess.userName} variant="h6">{user?.result.name}</Typography> */}
-    //         <Button
-    //           variant="contained"
-    //           className={classess.logout}
-    //           color="secondary"
-    //           onClick={logout}
-    //         >
-    //           Logout
-    //         </Button>
-    //       </div>
-    //     ) : (
-    //       <Button
-    //         component={Link}
-    //         to="/Auth"
-    //         variant="contained"
-    //         color="primary"
-    //       >
-    //         Sign In
-    //       </Button>
-    //     )}
-    //   </li>
-    //     </ul>
-    //   </nav>
-    // </header>
     <AppBar position="static">
       <Toolbar>
         <IconButton
@@ -135,9 +85,6 @@ const Navbar = (props) => {
               </li>
               <li>
                 <Link to="/MyPost">My Post</Link>
-              </li>
-              <li>
-                <Link to="/Chats">Chat</Link>
               </li>
               <li>
                 <Link to="/Map">Map</Link>

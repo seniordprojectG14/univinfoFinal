@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import "./styles.css";
+import logo from "./logo4.png";
 
 import {
   AppBar,
@@ -63,18 +65,17 @@ const Navbar = (props) => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
-        >
-          <MenuIcon />
-        </IconButton>
-
-        <img src="https://www.clipartmax.com/png/small/419-4198860_open-connecticut-uconn-huskies-logo.png"></img>
-
         <header className={classes.header}>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
+          </IconButton>
+
+          <img src={logo} width="250"></img>
           <nav>
             <ul>
               <li>

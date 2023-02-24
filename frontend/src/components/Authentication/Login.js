@@ -1,4 +1,3 @@
-import { Button } from "@chakra-ui/button";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { VStack } from "@chakra-ui/layout";
@@ -6,7 +5,9 @@ import { useState } from "react";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 //import { useHistory } from "react-router-dom";
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from "react-router-dom";
+import { TextField, Button, Box } from "@material-ui/core";
+
 const Login = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
@@ -16,7 +17,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   //const history = useHistory();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const submitHandler = async () => {
     setLoading(true);
@@ -71,53 +72,38 @@ const Login = () => {
   };
 
   return (
-    <VStack spacing="10px">
-      <FormControl id="username" isRequired>
-        <FormLabel>username</FormLabel>
-        <Input
-          value={username}
-          // type="email"
-          placeholder="username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </FormControl>
-      <FormControl id="password" isRequired>
-        <FormLabel>Password</FormLabel>
-        <InputGroup size="md">
-          <Input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type={show ? "text" : "password"}
-            placeholder="Enter password"
-          />
-          <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handleClick}>
-              {show ? "Hide" : "Show"}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
-      </FormControl>
-      <Button
-        colorScheme="blue"
-        width="100%"
-        style={{ marginTop: 15 }}
-        onClick={submitHandler}
-        isLoading={loading}
-      >
-        Login
-      </Button>
-      <Button
-        variant="solid"
-        colorScheme="red"
-        width="100%"
-        onClick={() => {
-          setUsername("guest@example.com");
-          setPassword("123456");
-        }}
-      >
-        Get Guest User Credentials
-      </Button>
-    </VStack>
+    <div>
+      <TextField
+        margin="normal"
+        fullWidth
+        required
+        id="outlined-basic"
+        label="Username"
+        variant="standard"
+        onChange={(e) => setUsername(e.target.value)}
+      />
+
+      <TextField
+        margin="normal"
+        fullWidth
+        required
+        id="outlined-basic"
+        label="Password"
+        variant="standard"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+
+      <Box m={2} pt={3}>
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={submitHandler}
+        >
+          Login
+        </Button>
+      </Box>
+    </div>
   );
 };
 

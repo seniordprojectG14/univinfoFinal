@@ -8,6 +8,7 @@ import PostList from "../postComponents/PostList.js";
 //import AllMeetupsPage from '../../pages/AllMeetups';
 //import Layout from '../layout/NewLayout';
 import Navbar from "../Navbar/Navbar";
+import Navbar2 from "../Navbar/navbar2.js";
 //import Auth from '../Auth/Auth.js';
 //import { getUsers } from '../../actions/posts';
 import MyPost from "../postComponents/MyPost";
@@ -18,6 +19,7 @@ import GoogleMaps from "../map/GoogleMaps";
 import MapList from "../map/MapList";
 import { useSelector } from "react-redux";
 import MyProfile from "../postComponents/myProfile/MyProfile";
+import ResponsiveAppBar from "../Navbar/navbar2.js";
 //import SetAvatar from '../SetAvatar';
 
 const Home = (props) => {
@@ -41,6 +43,7 @@ const Home = (props) => {
   return (
     <div>
       <Navbar user={username} setUser={setUserName} />
+      {/* <ResponsiveAppBar /> */}
       <Routes>
         <Route path="Auth" element={<Homepage />} />
         <Route

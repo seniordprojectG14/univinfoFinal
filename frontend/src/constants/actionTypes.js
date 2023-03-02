@@ -8,4 +8,4 @@ export const AUTH = 'AUTH';
 export const LOGOUT = 'LOGOUT';
 export const ADD_USERNAME = 'ADD_USERNAME';
 export const REMOVE_USERNAME = 'REMOVE_USERNAME';
-export const UPDATE_POST = 'UPDATE_POST'
+export const UPDATE_POST = 'UPDATE_POST';

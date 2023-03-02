@@ -21,6 +21,9 @@ export const fetchPosts = () =>{
 } 
 
 export const createPost = (newPost) => API.post('/posts', newPost);
+
+export const createPostformodel = (newPost) => API.post('http://127.0.0.1:5002/posts', newPost);
+
 //export const likePost = (id) => axios.patch(`${url}/${id}/likePost`);
 //export const updatePost = (id, updatedPost) => axios.patch(`${url}/${id}`, updatedPost);
 //export const deletePost = (id) => axios.delete(`${id}`);
@@ -35,6 +38,17 @@ export const deletePost = (id) =>{
   axios.delete(`${url}/${id}`);
   console.log("here");
 } 
+
+export const resetPassword = (username) => {
+  const data = {
+    username,
+  };
+  return axios.patch(`/api/user/resetPassword`, data)
+    .then(response => response.data)
+    .catch((error) => {
+      console.error(error);
+    });
+};
 // export const addUsernameDisLikes = (id, username, dispatch) =>{
 // const data = {
 //   username,

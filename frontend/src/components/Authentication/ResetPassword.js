@@ -11,7 +11,19 @@ const ResetPassword = () => {
   const [confirmpassword, setConfirmpassword] = useState();
   const [password, setPassword] = useState();
 
+  const onSubmit = async () => {
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
 
+    const { data } = await axios.patch(
+      "/api/user/resetPassword",
+      {username},
+      config
+    );
+  }
   const submitHandler = async () => {
     if (!name || !username || !password || !confirmpassword) {
       toast({
@@ -94,7 +106,7 @@ const ResetPassword = () => {
           variant="contained"
           color="primary"
           fullWidth
-          onClick={submitHandler}
+          onClick={onSubmit}
         >
          Reset
         </Button>

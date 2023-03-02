@@ -1,4 +1,19 @@
 import React, { useState, useEffect } from "react";
+import "./styles.css";
+// import "./scriptcss.js";
+import logo from "./logo4.png";
+import menu from "./stack.png";
+
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import MailIcon from "@material-ui/icons/Mail";
 
 import {
   AppBar,
@@ -21,6 +36,65 @@ import * as actionType from "../../constants/actionTypes";
 import useStyles from "./styles";
 
 const Navbar = (props) => {
+  const classes = useStyles();
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <div
+      className={clsx(classes.list, {
+        [classes.fullList]: anchor === "top" || anchor === "bottom",
+      })}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        <ul>
+          <li>
+            <Link to="/Blog">Post Page</Link>
+          </li>
+          <li>
+            <Link to="/NewPost">Add Post</Link>
+          </li>
+          <li>
+            <Link to="/MyPost">My Post</Link>
+          </li>
+          <li>
+            <Link to="/Map">Map</Link>
+          </li>
+          <li>
+            <Link to="/MyProfile">My Profile</Link>
+          </li>
+        </ul>
+        <div>
+          {username ? (
+            <li onClick={logout}>Logout</li>
+          ) : (
+            <li>
+              <Link to="/Auth">Login</Link>
+            </li>
+          )}
+        </div>
+      </List>
+    </div>
+  );
+
   const navigate = useNavigate();
   const [username, setUserName] = useState("");
   useEffect(async () => {
@@ -45,81 +119,75 @@ const Navbar = (props) => {
     console.log(username + "user");
   }, []);
 
-  // useEffect(() => {
-  //     const token = props.user?.token;
-
-  //     if (token) {
-  //       const decodedToken = decode(token);
-
-  //       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-  //     }
-
-  //     props.setUser(JSON.parse(localStorage.getItem('name')));
-  //   }, [location]);
-
   const stringifiedPerson = localStorage.getItem("name");
   const personAsObjectAgain = JSON.parse(stringifiedPerson);
 
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
-        >
-          <MenuIcon />
-        </IconButton>
-
-        <img src="https://www.clipartmax.com/png/small/419-4198860_open-connecticut-uconn-huskies-logo.png"></img>
-
-        <header className={classes.header}>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/Blog">Post Page</Link>
-              </li>
-              <li>
-                <Link to="/NewPost">Add Post</Link>
-              </li>
-              <li>
-                <Link to="/MyPost">My Post</Link>
-              </li>
-              <li>
-                <Link to="/Map">Map</Link>
-              </li>
-              <li>
-                <Link to="/MyProfile">My Profile</Link>
-              </li>
-              <li>
-                {username ? (
-                  <div className={classess.profile}>
-                    <Button
-                      variant="contained"
-                      className={classess.logout}
-                      color="secondary"
-                      onClick={logout}
-                    >
-                      Logout
-                    </Button>
-                  </div>
-                ) : (
-                  <Button
-                    component={Link}
-                    to="/Auth"
-                    variant="contained"
-                    color="primary"
+    <div>
+      <AppBar position="static">
+        <header>
+          <img class="logo" src={logo} width="180"></img>
+          <ul class="navbar">
+            <li>
+              <Link to="/Blog">Post Page</Link>
+            </li>
+            <li>
+              <Link to="/NewPost">Add Post</Link>
+            </li>
+            <li>
+              <Link to="/MyPost">My Post</Link>
+            </li>
+            <li>
+              <Link to="/Map">Map</Link>
+            </li>
+            <li>
+              <Link to="/MyProfile">My Profile</Link>
+            </li>
+          </ul>
+          <div class="main">
+            {username ? (
+              <div className={classess.profile}>
+                <Button
+                  id="authButton"
+                  variant="contained"
+                  className={classess.logout}
+                  color="secondary"
+                  onClick={logout}
+                >
+                  Logout
+                </Button>
+              </div>
+            ) : (
+              <Button
+                id="authButton"
+                component={Link}
+                to="/Auth"
+                variant="contained"
+                color="primary"
+              >
+                Sign In
+              </Button>
+            )}
+            <div id="menu-icon">
+              {["MENU"].map((anchor) => (
+                <React.Fragment key={anchor}>
+                  <MenuIcon onClick={toggleDrawer(anchor, true)}>
+                    {anchor}
+                  </MenuIcon>
+                  <Drawer
+                    anchor={anchor}
+                    open={state[anchor]}
+                    onClose={toggleDrawer(anchor, false)}
                   >
-                    Sign In
-                  </Button>
-                )}
-              </li>
-            </ul>
-          </nav>
+                    {list(anchor)}
+                  </Drawer>
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
         </header>
-      </Toolbar>
-    </AppBar>
+      </AppBar>
+    </div>
   );
 };
 

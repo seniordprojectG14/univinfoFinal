@@ -13,6 +13,8 @@ import { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import Login from "../components/Authentication/Login";
 import Signup from "../components/Authentication/Signup";
+import ResetPassword from "../components/Authentication/ResetPassword";
+
 
 function Homepage() {
   //const history = useHistory();
@@ -21,6 +23,7 @@ function Homepage() {
     const user = JSON.parse(localStorage.getItem("userInfo"));
   }, [navigate]);
 
+
   return (
     <Container maxW="xl" centerContent>
       <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px" m={55}>
@@ -28,6 +31,7 @@ function Homepage() {
           <TabList mb="1em">
             <Tab>Login</Tab>
             <Tab>Sign Up</Tab>
+            <Tab>Reset Password</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -36,11 +40,13 @@ function Homepage() {
             <TabPanel>
               <Signup />
             </TabPanel>
+            <TabPanel>
+              <ResetPassword />
+            </TabPanel>
           </TabPanels>
         </Tabs>
       </Box>
     </Container>
   );
 }
-
 export default Homepage;

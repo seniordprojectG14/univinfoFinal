@@ -4,6 +4,14 @@ import express from 'express';
 import aws from 'aws-sdk';
 import multer from 'multer'
 import multerS3 from 'multer-s3'
+import nodePickle from "node-pickle"
+import ajax from "ajax"
+import fetch from 'node-fetch';
+
+import request from "ajax-request"
+//import request from "request"
+import axios from 'axios'
+// import {createPostmodel} from './hey.js'
 // const aws = require("aws-sdk");
 // const multer = require("multer");
 // const multerS3 = require("multer-s3");
@@ -15,6 +23,7 @@ import mongoose from 'mongoose';
 
 // const Postmodel = require("../models/postModel");
 import Postmodel from '../models/postModel.js';
+import { waitUntilBucketExists } from '@aws-sdk/client-s3';
 
 const router = express.Router();
 
@@ -68,50 +77,151 @@ export const getPost  = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 }
+function returnOne () {
+  return Promise.resolve("1");
+}
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+// export const createPost = async (req, res) => {
+// // module.exports.createPost = async (req, res) => {
+//   // let fileList = req.files,
+//   // fileLocation;
+//   const description = req.body.description
+//   var con = 0
+//   request({
+//     url: "/Users/stephenmcnally/Documents/sdpflask.py",
+//      context: description
+//     }).then(
+//     (message) => {
+//       con = message
+//         console.log("Then success:" + message);
+//         console.log("con:" + con);
+//         sleep(2000);
+//   console.log(con + "com");
+//     if (con == "1"){
+    
+//       let len = req.body.len
+//       const uploadSingle = upload("stevenewbucket").array( 'imagecropped', len );
+//         uploadSingle(req, res, async (err) => {
+//           if (err)
+//             return res.status(400).json({ success: false, message: err.message });
+//       try {
+//           let fileArray = req.files,
+//           fileLocation;
+        
+//           const address = req.body.address
+//           console.log(address);
+//           const description = req.body.description
+//           const username = req.body.username
+//           const original_poster = req.body.original_poster
+//           const galleryImgLocationArray = [];
+//           for ( let i = 0; i < fileArray.length; i++ ) {
+//             fileLocation = fileArray[ i ].location;
+//             // console.log( 'filenm', fileLocation );
+//                       // console.log( 'filearray', JSON.stringify(fileArray) );
+//             galleryImgLocationArray.push( fileLocation )
+//           }
+    
+//           // createPostmodel(galleryImgLocationArray,address,description, username, original_poster)
+    
+    
+//           await Postmodel.create({
+//               photos: galleryImgLocationArray, 
+//               address: address,
+//               description: description,
+//               username: username,
+//               original_poster: original_poster,
+//           });
+       
+    
+//       } catch (error) {
+//         //  res.status(409).json({data: data});
+//       }
+    
+    
+//     });
+   
+//     }
+//     else{
+//       return
+        
+//     }
 
+//   })
+export const createPost = async (req, res) => {    
+console.log("starting");
+let len = req.body.len
+const uploadSingle = upload("stevenewbucket").array( 'imagecropped', len );
+        uploadSingle(req, res, async (err) => {
+                  if (err)
+                    return res.status(400).json({ success: false, message: err.message });
+              
+                  let fileArray = req.files,
+                  fileLocation;
+                  
+                  const address = req.body.address
+                  const description = req.body.description
+                  const username = req.body.username
+                 const original_poster = req.body.original_poster
+                  const galleryImgLocationArray = [];
+                  for ( let i = 0; i < fileArray.length; i++ ) {
+                    fileLocation = fileArray[ i ].location;
+                   
+                   galleryImgLocationArray.push( fileLocation )
+                  }
+                  try {
+                    console.log("Creating new model...");
+                    const createdPost = await Postmodel.create({
+                      photos: galleryImgLocationArray,
+                      address: address,
+                      description: description,
+                      username: username,
+                      original_poster: original_poster,
+                    });
+                    const createdPostId = createdPost.id;
+                    const createdPostDescription = createdPost.description;
+                    console.log("New model created with id:", createdPostId);
+                    console.log("New model description:", createdPostDescription);
+                    var url = 'http://localhost:8002/procces_model';
 
-export const createPost = async (req, res) => {
-// module.exports.createPost = async (req, res) => {
-  // let fileList = req.files,
-  // fileLocation;
-    let len = req.body.len
-    const uploadSingle = upload("stevenewbucket").array( 'imagecropped', len );
-      uploadSingle(req, res, async (err) => {
-        if (err)
-          return res.status(400).json({ success: false, message: err.message });
-    try {
-        let fileArray = req.files,
-        fileLocation;
-      
-        const address = req.body.address
-        console.log(address);
-        const description = req.body.description
-        const username = req.body.username
-        const original_poster = req.body.original_poster
-        const galleryImgLocationArray = [];
-				for ( let i = 0; i < fileArray.length; i++ ) {
-					fileLocation = fileArray[ i ].location;
-					// console.log( 'filenm', fileLocation );
-                    // console.log( 'filearray', JSON.stringify(fileArray) );
-					galleryImgLocationArray.push( fileLocation )
-				}
+fetch(url, {
+  method: 'POST', // or 'PUT'
+  body: JSON.stringify({
+    description: createdPostDescription
+  }),
+ 
+  headers:{
+    'Content-Type': 'application/json'
+  }
+
+}).then(response => response.json())
+.then (async data => {
+  console.log(data)
+  console.log(data.processed + "respons prosesed"); // log the value of 'processed'
+        if (data.processed == 'false'){
+          await Postmodel.findByIdAndRemove(createdPostId);
+        
+          console.log("here")
+           }else{
+            console.log(data.processed + "respons prosesed");
+             console.log("keep post")
+           }
+    })
+                  } catch (error) {
+                    console.error("Error creating model:", error);
+                  }   
+            });
+}
+
+ 
+
   
 
-
-
-        await Postmodel.create({
-            photos: galleryImgLocationArray, 
-            address: address,
-            description: description,
-            username: username,
-            original_poster: original_poster,
-        });
-
-    } catch (error) {
-      //  res.status(409).json({data: data});
-    }
-});
-};
 
 export const deletePost = async (req, res) => {
   const { id } = req.params;

@@ -1,0 +1,73 @@
+{
+  "Weekdays": {
+    "Breakfast": {
+      "Buckley": [ 420, 630 ],
+      "Putnam": [ 420, 630 ],
+      "Gelf": [ 420, 630 ],
+      "South": [ 420, 630 ],
+      "North": [ 420, 630 ],
+      "Whitney": [ 420, 630 ],
+      "McMahon": [ 420, 630 ],
+      "Northwest": [ 420, 630 ]
+    },
+
+    "Lunch": {
+      "Buckley": [ 645, 870 ],
+      "Putnam": [ 645, 870 ],
+      "Gelf": [ 645, 870 ],
+      "South": [ 645, 840 ],
+      "North": [ 645, 900 ],
+      "Whitney": [ 645, 900 ],
+      "McMahon": [ 645, 855 ],
+      "Northwest": [ 420, 855 ]
+
+    },
+    "Dinner": {
+      "Buckley": [ 960, 1155 ],
+      "Putnam": [ 960, 1155 ],
+      "Gelf": [ 960, 1155 ],
+      "South": [ 930, 1155 ],
+      "North": [ 990, 1155 ],
+      "Whitney": [ 990, 1155 ],
+      "McMahon": [ 945, 1155 ],
+      "Northwest": [ 945, 1155 ]
+
+    }
+  },
+
+  "Weekends": {
+    "Breakfast": {
+      "Buckley": null,
+      "Putnam": null,
+      "Gelf": [ 570, 630 ],
+      "South": [ 420, 630 ],
+      "North": null,
+      "Whitney": null,
+      "McMahon": null,
+      "Northwest": null
+    },
+
+    "Lunch": {
+      "Buckley": null,
+      "Putnam": [ 630, 870 ],
+      "Gelf": [ 630, 870 ],
+      "South": [ 630, 840 ],
+      "North": [ 630, 900 ],
+      "Whitney": [ 630, 900 ],
+      "McMahon": [ 630, 855 ],
+      "Northwest": [ 630, 855 ]
+
+    },
+    "Dinner": {
+      "Buckley": null,
+      "Putnam": [ 960, 1155 ],
+      "Gelf": [ 960, 1155 ],
+      "South": [ 930, 1155 ],
+      "North": [ 990, 1155 ],
+      "Whitney": [ 990, 1155 ],
+      "McMahon": [ 945, 1155 ],
+      "Northwest": [ 945, 1155 ]
+
+    }
+  }
+}

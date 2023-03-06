@@ -334,5 +334,33 @@ export const deletePost = (id) => async (dispatch) => {
   }
 };
 
+export const deAnon = (id) => async (dispatch) => {
+  try {
+    //grab credentials by ID 
+    console.log(id)
+    const { data } = await api.fetchPostById(id.id);
+    if(data.original_poster != "Anonymous User"){
+      console.log("post is not anonymized")
+      
+    } else {
+    //delete original post
+    await axios.delete(`/posts/${id.id}`);
+    dispatch({ type: DELETE, payload: id.id });
 
+    //create new post with deanon-ed creds 
+    data.original_poster = data.username
+    const formdata = new FormData();
+    formdata.append( "imagecropped", data.image);
+    formdata.append("address", data.address)
+    formdata.append("description", data.description)
+    formdata.append("username", data.username)
+    formdata.append("original_poster", data.username)
+    await axios.post("/posts", formdata, { headers: {
+      'accept': 'application/json',
+      'Content-Type': 'multipart/form-data'
+    }})}
+  } catch (error) {
+    console.log(error.message);
+  }
+}
 

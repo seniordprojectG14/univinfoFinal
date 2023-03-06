@@ -17,7 +17,7 @@ const MyPost = ({ currentId,setCurrentId, user, setUser }) => {
     posts.map((post) => {
       console.log("here");
       console.log("Username" + JSON.stringify(user?.username));
-        if(post?.username === user?.username){
+      if((post?.username === user?.username) || (user?.isAdmin === true)){
           setCounter(true);    
     }
     }
@@ -42,7 +42,8 @@ return (
   {posts.map((post) => {
     console.log("here");
     console.log("Username" + JSON.stringify(user?.username));
-      if(post?.username === user?.username){
+    console.log("is Admin?" + JSON.stringify(user?.isAdmin));
+      if((post?.username === user?.username) || (user?.isAdmin === true)){
           return( <PersonalPost post={post}/>)
   }
   }

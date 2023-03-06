@@ -1,6 +1,7 @@
 import React,{useEffect} from 'react';
 import Card from '../ui/Card';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ChildCareIcon from '@mui/icons-material/ChildCare';
 import { CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 import classes from './PostItem.module.css';
 import { useDispatch } from 'react-redux';
@@ -8,6 +9,7 @@ import moment from 'moment';
 import { deletePost } from '../../actions/posts';
 import useStyles from './styles.js';
 import { makeStyles } from '@material-ui/core/styles';
+import { deAnon } from '../../actions/posts';
 
 
 
@@ -25,6 +27,12 @@ import { makeStyles } from '@material-ui/core/styles';
     dispatch(deletePost({id: post._id}));
   }
 
+  const handleDeAnon = (e) =>{
+    e.preventDefault();
+    console.log(post._id, " post id");
+    dispatch(deAnon({id: post._id}));
+  }
+
 return (
   <li className={classes.item}>
     <Card>
@@ -40,6 +48,9 @@ return (
       </div>
       <Button onClick={handleOnSubmit}>
           <DeleteIcon/>
+      </Button>
+      <Button onClick={handleDeAnon}>
+          <ChildCareIcon/>
       </Button>
       <div className={classes.actions}>
       <Button>Chat</Button>

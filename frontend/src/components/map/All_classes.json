@@ -7914,20 +7914,6 @@
             ]
         },
         {
-            "room": "302",
-            "major": "GEOG",
-            "number": "3350",
-            "start": 660,
-            "end": 1455,
-            "teachers": [
-                "Abu,Thelma"
-            ],
-            "days": [
-                2,
-                4
-            ]
-        },
-        {
             "room": "443",
             "major": "HIST",
             "number": "2206",
@@ -21356,7 +21342,7 @@
             "start": 840,
             "end": 915,
             "teachers": [
-                "Kastner,Florian"
+                "White,Florian"
             ],
             "days": [
                 2,
@@ -38404,19 +38390,6 @@
             ]
         },
         {
-            "room": "T213",
-            "major": "PHAR",
-            "number": "5297",
-            "start": 1080,
-            "end": 1200,
-            "teachers": [
-                "Chaudhuri,Bodhi"
-            ],
-            "days": [
-                3
-            ]
-        },
-        {
             "room": "T114",
             "major": "PHYS",
             "number": "5302",
@@ -42274,7 +42247,7 @@
         {
             "room": "124",
             "major": "PATH",
-            "number": "3095",
+            "number": "3401",
             "start": 610,
             "end": 685,
             "teachers": [

@@ -19445,19 +19445,6 @@
             ]
         },
         {
-            "room": "239",
-            "major": "TRST",
-            "number": "5311",
-            "start": 1020,
-            "end": 1170,
-            "teachers": [
-                "Clarke,Chris"
-            ],
-            "days": [
-                3
-            ]
-        },
-        {
             "room": "106",
             "major": "AFRA",
             "number": "3898",
@@ -46904,7 +46891,8 @@
             "start": 675,
             "end": 1455,
             "teachers": [
-                "DeBald,Helena"
+                "DeBald,Helena",
+                "Wright,Bradley"
             ],
             "days": [
                 3

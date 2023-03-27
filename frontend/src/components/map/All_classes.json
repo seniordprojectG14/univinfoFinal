@@ -19445,6 +19445,19 @@
             ]
         },
         {
+            "room": "239",
+            "major": "TRST",
+            "number": "5311",
+            "start": 1020,
+            "end": 1170,
+            "teachers": [
+                "Clarke,Chris"
+            ],
+            "days": [
+                3
+            ]
+        },
+        {
             "room": "106",
             "major": "AFRA",
             "number": "3898",
@@ -29184,7 +29197,8 @@
             "start": 1050,
             "end": 1170,
             "teachers": [
-                "Burgess,Diane"
+                "Burgess,Diane",
+                "Chaudhuri,Bodhi"
             ],
             "days": [
                 2,

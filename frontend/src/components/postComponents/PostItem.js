@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import useStyles from './styles.js';
 import Geocode from "react-geocode";
-import { likePost, deletePost, dislikePost,addUser, subUsernameLikes,subUsernameDisLikes, addLike, addDisLike } from '../../actions/posts';
+import { likePost, deletePost, dislikePost,addUser, subUsernameLikes,subUsernameDisLikes, addLike, addDisLike, missPost, addMiss } from '../../actions/posts';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
@@ -66,6 +66,14 @@ const PostItem = ({ post, setCurrentId, user, setUser,proplist }) => {
     dispatch(subUsernameDisLikes(postId, count, username, postListDisLikeUsernames, post));
     
   };
+  const dispatchBothActionsMiss = async(postId, count, username, postListMissUsernames, post) => {
+    dispatch(missPost(postId, count, username, postListMissUsernames, post));
+   //await wait(2000);
+    dispatch(addMiss(postId, count, username, postListMissUsernames, post));
+  
+
+    
+  };
   
     return(
       <li className={classes.item}>
@@ -105,9 +113,10 @@ const PostItem = ({ post, setCurrentId, user, setUser,proplist }) => {
 
         
 
-        <Button>{JSON.stringify( post?.postListLikeUsernames)}</Button>
+       
         <Button>{post?.likeCount}</Button>
-        <Button>{JSON.stringify( post?.postListDisLikeUsernames)}</Button>
+        {/* <Button>{post?.missCount}</Button> */}
+
 
 
         {post?.postListDisLikeUsernames.includes(user?.username) &&
@@ -128,8 +137,19 @@ const PostItem = ({ post, setCurrentId, user, setUser,proplist }) => {
       ><ThumbDownIcon fontSize="small" /> disLike </Button>
 
 }
+        
         <p variant="body2">{moment(post?.createdAt)?.fromNow()}</p>
+        
        
+        <Button
+
+onClick={() =>{
+  dispatchBothActionsMiss(post?._id, post?.MissCount, user?.username, post?.postListMissUsernames, post);
+  }}
+        
+        >misinformation:{post?.postListMissUsernames?.length}</Button>
+        
+    
         </div>
       </Card>
     </li>

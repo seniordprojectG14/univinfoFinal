@@ -245,6 +245,31 @@ export const likePost = async (req, res) => {
   res.json(updatedPost);
 }
 
+export const missPostAdd = async (req, res) => {
+  const { id } = req.params;
+  console.log("missPostAdd");
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+  
+  const post = await Postmodel.findById(id);
+
+  const updatedPost = await Postmodel.findByIdAndUpdate(id, { MissCount: post.MissCount + 1 }, { new: true });
+  
+  res.json(updatedPost);
+}
+
+export const missPostSub = async (req, res) => {
+  const { id } = req.params;
+  console.log("missPostSub");
+
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+  
+  const post = await Postmodel.findById(id);
+
+  const updatedPost = await Postmodel.findByIdAndUpdate(id, { MissCount: post.MissCount - 1 }, { new: true });
+  
+  res.json(updatedPost);
+}
+
 
 
 export const dislikePost = async (req, res) => {
@@ -292,6 +317,42 @@ export const subUsernameLikes = async (req, res) => {
     const post = await Postmodel.findByIdAndUpdate(
       id,
       { $pull: { postListLikeUsernames: username } },
+      { new: true }
+    );
+    res.json(post);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ error: error.message });
+  }
+};
+
+
+export const addUsernameMiss = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const username = req.body.username;
+    console.log("postListMissUsernames");
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+  const post = await Postmodel.findById(id);
+  //post.postListLikeUsernames = arrayWithout(username, postListLikeUsernames);
+  const updatedPost = await Postmodel.findByIdAndUpdate(id, { $push: { postListMissUsernames: username }}, { new: true });
+  
+  res.json(updatedPost);
+    
+  } catch (error) {
+    return res.status(500).send({ error: error.message });
+  }
+};
+
+export const subUsernameMiss = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const username = req.body.username;
+    console.log(`Trying to remove ${username} from dislikes for post with id ${id}`);
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+    const post = await Postmodel.findByIdAndUpdate(
+      id,
+      { $pull: { postListMissUsernames: username } },
       { new: true }
     );
     res.json(post);

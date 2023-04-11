@@ -14,6 +14,11 @@ import mongoose from 'mongoose';
         type: Number,
         default: 0,
     },
+    MissCount: {
+        type: Number,
+        default: 0,
+    }, 
+    postListMissUsernames: [String],
     postListDisLikeUsernames: [String],
     postListLikeUsernames: [String],
     original_poster: String,

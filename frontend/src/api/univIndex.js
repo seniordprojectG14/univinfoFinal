@@ -7,13 +7,7 @@ import axios from 'axios';
  const API = axios.create({ baseURL: 'http://localhost:5001' });
 // const baseURL = axios.create({ baseURL: 'https://univinfomation.herokuapp.com' });
 const url = 'http://127.0.0.1:5001/posts'
-// API.interceptors.request.use((req) => {
-//     if (localStorage.getItem('form')) {
-//       req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('form')).token}`;
-//     }
 
-//     return req;
-// });
 
 export const fetchPosts = () =>{
   console.log("getting posts");
@@ -32,6 +26,16 @@ export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 export const fetchUsers = () => API.get('/user');
 export const likePost = (id) => axios.patch(`${url}/${id}/likePost`);
+
+
+
+
+
+
+
+
+
+
 export const dislikePost = (id) => axios.patch(`${url}/${id}/dislikePost`);
 export const deletePost = (id) =>{
   
@@ -49,18 +53,54 @@ export const resetPassword = (username) => {
       console.error(error);
     });
 };
-// export const addUsernameDisLikes = (id, username, dispatch) =>{
-// const data = {
-//   username,
-// };                           
-// axios.patch(`/posts/${id}/addUsernameDisLikes`, data)
-//   .then((response) => {
-//     dispatch({ type: ADD_USERNAME, payload: response.data });
-//   })
-//   .catch((error) => {
-//     console.error(error);
-//   });
-// }
+
+
+//adding username to list 
+export const addUsernameMiss = (id, username) => {
+  const data = {
+    username,
+  };
+  return axios.patch(`/posts/${id}/addUsernameMiss`, data)
+    .then(response => response.data)
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+//sub username to list from list
+export const subUsernameMiss = (id, username) => {
+  const data = {
+    username,
+  };
+  return axios.patch(`/posts/${id}/subUsernameMiss`, data)
+    .then(response => response.data)
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+
+export const missPostSub = (id, username) => {
+  const data = {
+    username,
+  };
+  return axios.patch(`/posts/${id}/missPostSub`, data)
+    .then(response => response.data)
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const missPostAdd = (id, username) => {
+  const data = {
+    username,
+  };
+  return axios.patch(`/posts/${id}/missPostAdd`, data)
+    .then(response => response.data)
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
 export const addUsernameDisLikes = (id, username) => {
   const data = {

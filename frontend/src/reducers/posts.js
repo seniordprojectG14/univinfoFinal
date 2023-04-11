@@ -11,10 +11,14 @@ export default (posts = [], action) => {
       return action.payload;
     case LIKE:
      return posts.map((post) => (post._id === action.payload._id ? action.payload : post));
+
      case disLIKE:
      return posts.map((post) => (post._id === action.payload._id ? action.payload : post));
     case CREATE:
       return [...posts, action.payload];
+
+    
+
       case ADD_USERNAME:
   return posts.map(post => {
     if (post._id === action.payload.id) {

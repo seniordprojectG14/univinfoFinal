@@ -56,6 +56,7 @@ export const getUsers = () => async (dispatch) => {
 // };
 
 ////////
+
 export const likePost = (id, likeCount, currentUser, PostListUsers, post) => async (dispatch) => {
   try {
     console.log(currentUser + "currentUser");
@@ -84,6 +85,31 @@ export const likePost = (id, likeCount, currentUser, PostListUsers, post) => asy
     console.log("error");
   }
 }
+
+//takes away or adds it to the list
+export const missPost = (id, likeCount, currentUser, PostListUsers, post) => async (dispatch) => {
+  try {
+    console.log(currentUser + "currentUser");
+    console.log(currentUser + "PostListUsers");
+    if (post?.postListMissUsernames?.includes(currentUser)){
+      console.log("allready liked likePost");
+      const updatedPost = await api.subUsernameMiss(id, currentUser);
+      dispatch({ type: 'UPDATE_POST', payload: updatedPost });
+    }
+    if (usernameNotInList(post?.postListMissUsernames, currentUser)){
+      console.log("here");
+      // await api.addUsernameLikes(id, currentUser, dispatch);
+      // dispatch({ type: 'ADD_USERNAME', payload: { id, username: currentUser } });
+      const updatedPost = await api.addUsernameMiss(id, currentUser);
+      dispatch({ type: 'UPDATE_POST', payload: updatedPost });
+    }
+  } catch (error) {
+    console.log(error.message);
+    console.log("error");
+  }
+}
+
+
 export const addLike = (id, likeCount, currentUser, PostListUsers, post) => async (dispatch) => {
   try {
     console.log(currentUser + "currentUser");
@@ -93,6 +119,8 @@ export const addLike = (id, likeCount, currentUser, PostListUsers, post) => asyn
       const { data } = await api.dislikePost(id);
       dispatch({ type: LIKE, payload: data });
     }
+
+
     
     // if (post?.postListDisLikeUsernames.includes(currentUser) ){
     //     console.log("allready liked addLike");
@@ -115,12 +143,35 @@ export const addLike = (id, likeCount, currentUser, PostListUsers, post) => asyn
   }
 }
 
+//Adds another to the count or takes it away
+export const addMiss = (id, likeCount, currentUser, PostListUsers, post) => async (dispatch) => {
+  try {
+    console.log(currentUser + "currentUser");
+    console.log(currentUser + "PostListUsers");
+    if (post?.postListMissUsernames.includes(currentUser) ){
+      console.log("allready miss addMiss");
+      const { data } = await api.missPostSub(id,currentUser);
+      dispatch({ type: LIKE, payload: data });
+    }
+    if (usernameNotInList(post?.postListMissUsernames, currentUser)) {
+  
+    
+      console.log("here addLike");
+      const { data } = await api.missPostAdd(id,currentUser);
+     dispatch({ type: LIKE, payload: data });
+    }
+  } catch (error) {
+    console.log(error.message);
+    console.log("error");
+  }
+}
+
 const usernameNotInList = (usernameList, username) => {
   return !usernameList.includes(username);
 }
 const wait = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
-////////
+//
 export const dislikePost = (id, likeCount, currentUser, PostListUsers, post) => async (dispatch) => {
   try {
     console.log(currentUser + "currentUser");
@@ -130,27 +181,10 @@ export const dislikePost = (id, likeCount, currentUser, PostListUsers, post) => 
       dispatch({ type: 'UPDATE_POST', payload: updatedPost });
       console.log("allready disliked");
     }
-    // if (post?.postListLikeUsernames?.includes(currentUser)){
-    //   console.log("allready liked post");
-      // await api.addUsernameDisLikes(id, currentUser, dispatch);
-      // dispatch({ type: 'ADD_USERNAME', payload: { id, username: currentUser } });
-      //const updatedPost = await api.fetchPostById(id);
-      //dispatch({ type: 'UPDATE_POST', payload: updatedPost });
-
-      // const updatedPost = await api.addUsernameDisLikes(id, currentUser);
-      // dispatch({ type: 'UPDATE_POST', payload: updatedPost });
-     
-    // }
     if (usernameNotInList(post?.postListLikeUsernames, currentUser) && usernameNotInList(post?.postListDisLikeUsernames, currentUser)) {
       console.log("here");
-      // await api.addUsernameDisLikes(id, currentUser, dispatch);
-      // dispatch({ type: 'ADD_USERNAME', payload: { id, username: currentUser } });
-      //const updatedPost = await api.fetchPostById(id);
-     /// dispatch({ type: 'UPDATE_POST', payload: updatedPost });
      const updatedPost = await api.addUsernameDisLikes(id, currentUser);
     dispatch({ type: 'UPDATE_POST', payload: updatedPost });
-   
-
     }
   } catch (error) {
     console.log(error.message);
@@ -169,19 +203,7 @@ export const addDisLike = (id, likeCount, currentUser, PostListUsers, post) => a
       const { data } = await api.likePost(id);
       dispatch({ type: LIKE, payload: data });
     }
-    // if (post?.postListLikeUsernames?.includes(currentUser)){
-    //   console.log("allready liked");
-    //   if(likeCount <= -4){
-
-    //     console.log("deleting post with id " + id);
-    //     await axios.delete(`/posts/${id}`);
-    //     dispatch({ type: DELETE, payload: id });
-    //   }else{
-      
-    //   const { data } = await api.dislikePost(id);
-    //   dispatch({ type: LIKE, payload: data });
-    //   }
-    // }
+  
     if (usernameNotInList(post?.postListLikeUsernames, currentUser) && usernameNotInList(post?.postListDisLikeUsernames, currentUser)) {
       console.log("here");
       if(likeCount == -4){
@@ -208,17 +230,9 @@ export const subUsernameLikes = (id, likeCount, currentUser, PostListUsers, post
     if (post?.postListDisLikeUsernames.includes(currentUser) ){
       console.log("allready disliked subUsernameLikes");
     }
-    // if (post?.postListLikeUsernames?.includes(currentUser)){
-    //   console.log("allready liked subUsernameLikes");
-      // await api.addUsernameDisLikes(id, currentUser, dispatch);
-      // await wait(1000); 
-      // const updatedPost = await api.subUsernameLikes(id, currentUser);
-      // dispatch({ type: 'UPDATE_POST', payload: updatedPost });
-    //}
+
     if (usernameNotInList(post?.postListLikeUsernames, currentUser) && usernameNotInList(post?.postListDisLikeUsernames, currentUser)) {
       console.log("here subUsernameLikes");
-      //await api.addUsernameDisLikes(id, currentUser, dispatch);
-
     }
   } catch (error) {
     console.log(error.message);

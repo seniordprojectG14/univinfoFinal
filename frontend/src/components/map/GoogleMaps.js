@@ -37,8 +37,7 @@ function get_menu(hall) {
         var L_times = times.Weekdays.Lunch[hall];
         var D_times = times.Weekdays.Dinner[hall];
     }
-    var possible_meals = [[B_times, 'Breakfast'],[B_times, 'Breakfast'],[B_times, 'Breakfast']];
-    //var possible_meals = [[B_times, 'Breakfast'], [L_times, 'Lunch'], [D_times, 'Dinner']];
+    var possible_meals = [[B_times, 'Breakfast'], [L_times, 'Lunch'], [D_times, 'Dinner']];
     // possible_meals[i][0] = a pair of form [opening, closing]
     var confirmed_meals = []
     for (let i = 0; i < 3; i++) {

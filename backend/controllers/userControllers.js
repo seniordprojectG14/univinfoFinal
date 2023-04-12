@@ -3,7 +3,6 @@ import asyncHandler from "express-async-handler"
 import User from '../models/userModel.js'
 // const User = require("../models/userModel");
 import generateToken from '../config/generateToken.js';
-import nodePickle from "node-pickle"
 // const generateToken = require("../config/generateToken");
 
 //@description     Get or Search all users

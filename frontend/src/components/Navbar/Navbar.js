@@ -65,7 +65,7 @@ const Navbar = (props) => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <ul>
+        <ul class="dropdown">
           <li>
             <Link to="/Blog">Post Page</Link>
           </li>
@@ -81,16 +81,19 @@ const Navbar = (props) => {
           <li>
             <Link to="/MyProfile">My Profile</Link>
           </li>
+
+          <div>
+            {username ? (
+              <li id="logout" onClick={logout}>
+                Logout
+              </li>
+            ) : (
+              <li id="login">
+                <Link to="/Auth">Login</Link>
+              </li>
+            )}
+          </div>
         </ul>
-        <div>
-          {username ? (
-            <li onClick={logout}>Logout</li>
-          ) : (
-            <li>
-              <Link to="/Auth">Login</Link>
-            </li>
-          )}
-        </div>
       </List>
     </div>
   );

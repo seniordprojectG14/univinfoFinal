@@ -47,8 +47,8 @@ body {
 
 .navbar li {
   color: black;
-  font-size: 1.1rem;
-  font-weight: 500;
+  font-size: 1.8rem;
+  font-weight: bold;
   padding: 5px 0;
   margin: 0px 30px;
   transition: all 0.5s ease;
@@ -91,6 +91,32 @@ body {
   display: none;
 }
 
+.dropdown li {
+  font-size: 34px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.dropdown li::before {
+  background-color: paleturquoise;
+  border-radius: 0.25rem;
+  content: "";
+  display: block;
+  height: 0.25rem;
+  width: 42px;
+  /* margin-bottom: 1.25rem; */
+}
+
+#logout {
+  color: rgb(196, 45, 45);
+  font-weight: bold;
+}
+
+#login {
+  color: rgb(56, 56, 159);
+  font-weight: bold;
+}
+
 @media (max-width: 1500px) {
   header {
     padding: 14px 2%;
@@ -108,7 +134,7 @@ body {
   .navbar {
     position: absolute;
     top: 100%;
-    /* right: -100%; */
+    right: -100%;
     width: 270px;
     height: 29vh;
     background-color: cornflowerblue;

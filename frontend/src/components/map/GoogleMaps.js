@@ -1,5 +1,5 @@
 import React, { useEffect} from 'react';
-import GoogleMapReact from 'google-map-react';
+import GoogleMapReact, { fitBounds } from 'google-map-react';
 import Geocode from "react-geocode";
 import { useSelector } from 'react-redux';
 import { Tooltip } from '@material-ui/core';
@@ -11,6 +11,14 @@ import halls from './Diner_menus.json';
 import times from './Diner_hours.json';
 import classrooms from './Class_locs.json';
 import grad_cat from './All_classes.json';
+import s_icon from './Custom_Icons/Classroom_Icon.png'
+import d_icon from './Custom_Icons/Diner_Icon.png'
+import r_icon from './Custom_Icons/Rec Logo.png'
+import l_icon from './Custom_Icons/Library_Logo.png'
+import h_icon from './Custom_Icons/Housing_Icon.png'
+import p_icon from './Custom_Icons/Parking_Icon.png'
+import housing from './Housing.json'
+import lots from './Lots.json'
 
 console.log('Content Bod!');
 
@@ -93,19 +101,25 @@ const GoogleMaps = ({ currentId, setCurrentId }) => {
     const AnyReactComponent = props => {
 
         return (
-            <Tooltip title="custom post for campus info (hard coded) ">
-                <PushPinIcon />
-            </Tooltip>);
+            < a href="https://lib.uconn.edu/">
+                <Tooltip title='Click Me to go the Library homepage!'>
+                    <img src={l_icon} alt="Homer Babbidge Library" height="25" width="25"
+
+                    />
+                </Tooltip>
+            </a>);
     }
 
 
     const Gym = props => {
-        let capacity = '39'
         return (
+            < a href = "https://recreation.uconn.edu/">
+            <Tooltip title= 'Click Me to go the Rec Center homepage!'>
+                <img src={r_icon} alt="Uconn Rec Center" height="25" width="25"
 
-            <Tooltip title={capacity}>
-                <FitnessCenterIcon />
-            </Tooltip>);
+                />
+                </Tooltip>
+                </a>);
     }
 
     const Dining_Hall = props => {
@@ -172,15 +186,32 @@ const GoogleMaps = ({ currentId, setCurrentId }) => {
  
 
 
-    var diner_coords = [{ name: 'Buckley', X: 41.8056555870853, Y: - 72.24388459682399, menu: get_menu('Buckley') },
-        { name: 'Gelf', X: 41.814160246170076, Y: - 72.25398514100021, menu: get_menu('Gelf') },
-        { name: 'McMahon', X: 41.80368003438827, Y: - 72.25189957352976, menu: get_menu('McMahon')},
-        { name: 'North', X: 41.80368003438827, Y: - 72.25189957352976, menu: get_menu('North') },
-        { name: 'Northwest', X: 41.8116748819886, Y: - 72.25975373120009, menu: get_menu('Northwest') },
-        { name: 'Putnam', X: 41.805361935522505, Y: - 72.2589664735297, menu: get_menu('Putnam') },
-        { name: 'South', X: 41.80420994357475, Y: - 72.24876338479156, menu: get_menu('South') },
-        { name: 'Whitney', X: 41.810095215886975, Y: - 72.24721843428927, menu: get_menu('Whitney')}  ]
+    var diner_coords = [{ name: 'Buckley', X: 41.8056555870853, Y: - 72.24388459682399, menu: get_menu('Buckley'), link: "https://nutritionanalysis.dds.uconn.edu/shortmenu.aspx?sName=UCONN+Dining+Services&locationNum=03&locationName=Buckley+Dining+Hall&naFlag=1" },
+        { name: 'Gelf', X: 41.814160246170076, Y: - 72.25398514100021, menu: get_menu('Gelf'), link: "https://nutritionanalysis.dds.uconn.edu/shortmenu.aspx?sName=UCONN+Dining+Services&locationNum=42&locationName=Gelfenbien+Commons,%20Halal+%26+Kosher&naFlag=1" },
+        { name: 'McMahon', X: 41.80368003438827, Y: - 72.25189957352976, menu: get_menu('McMahon'), link: "https://nutritionanalysis.dds.uconn.edu/shortmenu.aspx?sName=UCONN+Dining+Services&locationNum=05&locationName=McMahon+Dining+Hall&naFlag=1"},
+        { name: 'North', X: 41.80368003438827, Y: - 72.25189957352976, menu: get_menu('North'), link: "https://nutritionanalysis.dds.uconn.edu/shortmenu.aspx?sName=UCONN+Dining+Services&locationNum=07&locationName=North+Campus+Dining+Hall&naFlag=1" },
+        { name: 'Northwest', X: 41.8116748819886, Y: - 72.25975373120009, menu: get_menu('Northwest'), link: "https://nutritionanalysis.dds.uconn.edu/shortmenu.aspx?sName=UCONN+Dining+Services&locationNum=15&locationName=Northwest+Marketplace&naFlag=1" },
+        { name: 'Putnam', X: 41.805361935522505, Y: - 72.2589664735297, menu: get_menu('Putnam'), link: "https://nutritionanalysis.dds.uconn.edu/shortmenu.aspx?sName=UCONN+Dining+Services&locationNum=06&locationName=Putnam+Dining+Hall&naFlag=1" },
+        { name: 'South', X: 41.80420994357475, Y: - 72.24876338479156, menu: get_menu('South'), link: "https://nutritionanalysis.dds.uconn.edu/shortmenu.aspx?sName=UCONN+Dining+Services&locationNum=16&locationName=South+Campus+Marketplace&naFlag=1" },
+        { name: 'Whitney', X: 41.810095215886975, Y: - 72.24721843428927, menu: get_menu('Whitney'), link: "https://nutritionanalysis.dds.uconn.edu/shortmenu.aspx?sName=UCONN+Dining+Services&locationNum=01&locationName=Whitney+Dining+Hall&naFlag=1" }  ]
 
+    var Housing = [];
+    var houses = Object.keys(housing);
+    for (let i = 0; i < houses.length; i++) {
+        var current = houses[i];
+        //console.log(classrooms[current].X);
+        Housing.push({ lat: housing[current].lat, lng: housing[current].lng, name: current});
+    }
+
+    var Lots = [];
+    var lot = Object.keys(lots);
+    for (let i = 0; i < lot.length; i++) {
+        var current = lot[i];
+        Lots.push({ lat: lots[current].lat, lng: lots[current].lng, name: current });
+    }
+    console.log('Lots jere');
+    console.log(Lots);
+    console.log(houses);
     function get_display(Building) {
         console.log(Building);
         console.log(grad_cat[Building]);
@@ -213,7 +244,7 @@ const GoogleMaps = ({ currentId, setCurrentId }) => {
         }
         return final_output;
     }
-    console.log(get_display("BUSN"));
+    //console.log(get_display("BUSN"));
 
         var catalouge_buildings = Object.keys(grad_cat);
         var catalouge_dictionary = {};
@@ -233,7 +264,7 @@ const GoogleMaps = ({ currentId, setCurrentId }) => {
                 catalouge_dictionary[current].push([temp_string, current_object.start, current_object.end]);
             }
         }
-        console.log(catalouge_dictionary);
+        //console.log(catalouge_dictionary);
     var classroom_coords = []
     var buildings = Object.keys(classrooms);
     for (let i = 0; i < buildings.length; i++) {
@@ -242,57 +273,89 @@ const GoogleMaps = ({ currentId, setCurrentId }) => {
         classroom_coords.push({ name: current, X: classrooms[current].X, Y: classrooms[current].Y, message: get_display(current)});
     }
     console.log('Zoom Test');
+    var img_src = s_icon;
 
+    
  return (
-   <div style={{ height: '80vh', width: '100%' }}>
-    <GoogleMapReact
-      bootstrapURLKeys={{ key: 'AIzaSyBBoDTa2K0ql0d3ssnlMEYXdBvQLI6_LqA' }}
-      defaultCenter={{ lat: 41.80593409999999, lng: -72.25367539999999 }}
-      defaultZoom={16}
-      yesIWantToUseGoogleMapApiInternals
-             onGoogleApiLoaded={({ map, maps }) => renderMyMarkers(map, maps)}
-             onZoomChanged={() => {
-                 console.log(this.getZoom())
+     <div style={{ height: '80vh', width: '100%' }}>
+         {console.log('Zoom Test 2')}
+         <GoogleMapReact
+             bootstrapURLKeys={{ key: 'AIzaSyBBoDTa2K0ql0d3ssnlMEYXdBvQLI6_LqA' }}
+             defaultCenter={{ lat: 41.80593409999999, lng: -72.25367539999999 }}
+             defaultZoom={16}
+             yesIWantToUseGoogleMapApiInternals
+             onGoogleApiLoaded={({ map, maps }) => {
+                 map.mapTypeId = 'satellite';
+                 console.log(map);
+                 map.minZoom = 15;
+                 map.maxZoom = 20;
              }}
+             onZoom={({ map, maps }) => { console.log(map.zoom) }}
       
     >
       {/* <Marker lat={43.80593409999999} lng={-74.25367539999999 }/> */}
       <AnyReactComponent  
-         lat={41.80593409999999} lng={-72.25367539999999 }/>
+                 lat={41.80662856389982} lng={-72.25175903175187}/>
       <Gym
                  lat={41.805020} lng={-72.252560} />
+
+             {Lots.map((item) => (
+                 <Tooltip title={
+                     <React.Fragment>
+                         <span style={{
+                             'white-space': "pre-line",
+
+                         }}>{item.name}</span>
+                     </React.Fragment>} lat={item.lat} lng={item.lng}>
+                     <img src={p_icon} alt="Ignore me?" height="25" width="25"
+
+                     />
+                 </Tooltip>
+             ))
+             }
+
+             {Housing.map((item) => (
+                 <Tooltip title={
+                     <React.Fragment>
+                         <span style={{
+                             'white-space': "pre-line",
+
+                         }}>{item.name}</span>
+                     </React.Fragment>} lat={item.lat} lng = {item.lng}>
+                     <img src={h_icon} alt="Ignore me?" height="25" width="25"
+
+                     />
+                 </Tooltip>
+             ))
+             }
              {diner_coords.map((item) => (
-                 <a href="https://dining.uconn.edu/nutrition/" lat={item.X} lng={item.Y}>
+                 <a href={item.link} lat={item.X} lng={item.Y}>
                      <Tooltip title={
                          <React.Fragment>
                              <span style={{
                                  'white-space': "pre-line",
 
                              }}>{item.menu}</span>
-                     </React.Fragment>}>
-                         <RestaurantIcon sx={{
-                             "&:hover": { color: "Red" },
-                         }}>
-                         </RestaurantIcon>
+                         </React.Fragment>}>
+                         <img src={d_icon} alt="Girl in a jacket" height="25" width="25"
+
+                         />
                      </Tooltip>
                  </a>)
              )}
 
              {classroom_coords.map((item) => (
-                 <a href="https://catalog.uconn.edu/" lat={item.X} lng={item.Y}>
                      <Tooltip title={<React.Fragment>
-                         <span style={{ 'white-space': "pre-line"}}>{item.message}</span>
-                     </React.Fragment>}
+                         <span style={{ 'whiteSpace': "pre-line"}}>{item.message}</span>
+                     </React.Fragment>} lat={item.X} lng={item.Y}
                          resizeHide={false}>
-                         <SchoolIcon style={{ fontSize: "20px" }} sx={{
-                             "&:hover": { color: "Red" },
-                         }}>
-                         </SchoolIcon>
-                     </Tooltip>
-                 </a>)
+                         <img src={img_src} alt="Girl in a jacket" height="25" width="25"
+             
+                         />
+                     </Tooltip>)
              )}
-            
-       
+
+                     
 
     </GoogleMapReact>
    </div>

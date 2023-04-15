@@ -28,6 +28,7 @@ import { deAnon } from '../../actions/posts';
   }
 
   const handleDeAnon = (e) =>{
+
     e.preventDefault();
     console.log(post._id, " post id");
     dispatch(deAnon({id: post._id}));
@@ -46,14 +47,17 @@ return (
           </div>
         <p>{post.description}</p>
       </div>
+      <div className={classes.actions}>
       <Button onClick={handleOnSubmit}>
           <DeleteIcon/>
+          <p>delete post</p>
       </Button>
       <Button onClick={handleDeAnon}>
-          <ChildCareIcon/>
+        <DeleteIcon/>
+        <p>de-anon post</p>
       </Button>
+      </div>
       <div className={classes.actions}>
-      <Button>Chat</Button>
       <p variant="body2">{moment(post.createdAt).fromNow()}</p>
      
       </div>

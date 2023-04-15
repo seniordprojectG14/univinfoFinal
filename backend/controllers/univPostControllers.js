@@ -122,11 +122,13 @@ export const deletePost = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-  console.log("here");
+  console.log("POSTCONTROLLER DEL");
   await Postmodel.findByIdAndRemove(id);
 
   res.json({ message: "Post deleted successfully." });
 }
+
+
 
 export const likePost = async (req, res) => {
   const { id } = req.params;

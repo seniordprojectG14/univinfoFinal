@@ -353,18 +353,20 @@ export const deAnon = (id) => async (dispatch) => {
     //grab credentials by ID 
     console.log(id)
     const { data } = await api.fetchPostById(id.id);
-    if(data.original_poster != "Anonymous User"){
+    if(data.original_poster != "Anonymous user"){
       console.log("post is not anonymized")
       
     } else {
     //delete original post
+    //console.log("arrived past else")
     await axios.delete(`/posts/${id.id}`);
     dispatch({ type: DELETE, payload: id.id });
 
     //create new post with deanon-ed creds 
     data.original_poster = data.username
     const formdata = new FormData();
-    formdata.append( "imagecropped", data.image);
+    console.log(data)
+    formdata.append( "imagecropped", data.photos[0]);
     formdata.append("address", data.address)
     formdata.append("description", data.description)
     formdata.append("username", data.username)

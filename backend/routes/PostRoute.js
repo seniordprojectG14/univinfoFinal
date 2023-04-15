@@ -21,7 +21,6 @@ router.get('/:id', getPost);
 //router.patch('/:id', updatePost);
 router.delete('/:id', deletePost);
 
-
 router.patch('/:id/addUsernameMiss', addUsernameMiss);
 router.patch('/:id/subUsernameMiss', subUsernameMiss);
 router.patch('/:id/missPostSub', missPostSub);

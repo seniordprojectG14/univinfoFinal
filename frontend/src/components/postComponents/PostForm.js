@@ -89,11 +89,11 @@ const PostForm = ({ currentId, setCurrentId, user, setUser}) => {
     return(
         <form className={classes.form} onSubmit={handleSubmit}>
   <div className={classes.control}>
-    <label htmlFor='title'>address</label>
+    <label htmlFor='title'>Post address</label>
     <input type='text' id='address' value={postData.address} onChange={(e) => setPostData({ ...postData, address: e.target.value})}/>
   </div>
   <div className={classes.control}>
-    <label >add photos</label>
+    <label >Upload photo:</label>
     <div>
     <div className="container-buttons">
 
@@ -104,7 +104,7 @@ const PostForm = ({ currentId, setCurrentId, user, setUser}) => {
           </div>
   </div>
   <div className={classes.control}>
-    <label htmlFor='description'>any other things to add</label>
+    <label htmlFor='description'>Post body:</label>
     <textarea id='description'  rows='5' value={postData.description} onChange={(e) => setPostData({ ...postData, description: e.target.value })}></textarea>
   </div>
   <div className={classes.actions}>

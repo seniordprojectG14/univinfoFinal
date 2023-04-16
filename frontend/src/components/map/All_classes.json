@@ -21670,11 +21670,33 @@
         {
             "room": "None Listed",
             "major": "COMM",
+            "number": "3320",
+            "start": 0,
+            "end": 0,
+            "teachers": [
+                "Rios,Diana"
+            ],
+            "days": []
+        },
+        {
+            "room": "None Listed",
+            "major": "COMM",
             "number": "3322",
             "start": 0,
             "end": 0,
             "teachers": [
                 "Rios,Diana"
+            ],
+            "days": []
+        },
+        {
+            "room": "None Listed",
+            "major": "COMM",
+            "number": "4981",
+            "start": 0,
+            "end": 0,
+            "teachers": [
+                "Meade,Thomas"
             ],
             "days": []
         },
@@ -29695,6 +29717,21 @@
             ]
         },
         {
+            "room": "109",
+            "major": "COMM",
+            "number": "3120W",
+            "start": 675,
+            "end": 725,
+            "teachers": [
+                "Rao,Aditi"
+            ],
+            "days": [
+                1,
+                3,
+                5
+            ]
+        },
+        {
             "room": "101",
             "major": "CLCS",
             "number": "1102",
@@ -34540,6 +34577,20 @@
             ]
         },
         {
+            "room": "202",
+            "major": "DMD",
+            "number": "3998",
+            "start": 935,
+            "end": 1010,
+            "teachers": [
+                "Murphy,John"
+            ],
+            "days": [
+                1,
+                3
+            ]
+        },
+        {
             "room": "120",
             "major": "ENGR",
             "number": "3195",
@@ -35639,6 +35690,21 @@
             ]
         },
         {
+            "room": "319",
+            "major": "COMM",
+            "number": "3120W",
+            "start": 610,
+            "end": 660,
+            "teachers": [
+                "Rao,Aditi"
+            ],
+            "days": [
+                1,
+                3,
+                5
+            ]
+        },
+        {
             "room": "201",
             "major": "CLCS",
             "number": "1102",
@@ -36165,15 +36231,17 @@
             ]
         },
         {
-            "room": "144GENT",
+            "room": "144",
             "major": "EPSY",
             "number": "4010",
-            "start": 0,
-            "end": 0,
+            "start": 780,
+            "end": 1005,
             "teachers": [
                 "Eckert,Rebecca"
             ],
-            "days": []
+            "days": [
+                2
+            ]
         },
         {
             "room": "142GENT",
@@ -39815,6 +39883,20 @@
             ]
         },
         {
+            "room": "302",
+            "major": "COMM",
+            "number": "3230",
+            "start": 930,
+            "end": 1005,
+            "teachers": [
+                "Hintz,Elizabeth"
+            ],
+            "days": [
+                2,
+                4
+            ]
+        },
+        {
             "room": "106",
             "major": "COMM",
             "number": "3420W",
@@ -40072,6 +40154,20 @@
             ],
             "days": [
                 1
+            ]
+        },
+        {
+            "room": "102",
+            "major": "DRAM",
+            "number": "1101",
+            "start": 660,
+            "end": 735,
+            "teachers": [
+                "Macki,AC"
+            ],
+            "days": [
+                2,
+                4
             ]
         },
         {
@@ -50017,6 +50113,21 @@
             ]
         },
         {
+            "room": "T113",
+            "major": "COMM",
+            "number": "3120W",
+            "start": 740,
+            "end": 790,
+            "teachers": [
+                "Chase,Nathan"
+            ],
+            "days": [
+                1,
+                3,
+                5
+            ]
+        },
+        {
             "room": "A120",
             "major": "CSE",
             "number": "3666",
@@ -52050,6 +52161,21 @@
                 "Kraemer,Daniel"
             ],
             "days": [
+                5
+            ]
+        },
+        {
+            "room": "103",
+            "major": "COMM",
+            "number": "3520",
+            "start": 610,
+            "end": 660,
+            "teachers": [
+                "Kalnova,Svetlana"
+            ],
+            "days": [
+                1,
+                3,
                 5
             ]
         },
@@ -62099,6 +62225,56 @@
             ]
         },
         {
+            "room": "007",
+            "major": "DMD",
+            "number": "3850",
+            "start": 545,
+            "end": 845,
+            "teachers": [
+                "Frick-Verdine,Adam"
+            ],
+            "days": [
+                5
+            ]
+        },
+        {
+            "room": "146",
+            "major": "DMD",
+            "number": "3998",
+            "start": 1020,
+            "end": 1185,
+            "teachers": [
+                "Ceglio,Clarissa"
+            ],
+            "days": [
+                1
+            ]
+        },
+        {
+            "room": "007BISH",
+            "major": "DMD",
+            "number": "3998",
+            "start": 0,
+            "end": 0,
+            "teachers": [
+                "Coltrain,James"
+            ],
+            "days": []
+        },
+        {
+            "room": "006",
+            "major": "DMD",
+            "number": "3998",
+            "start": 610,
+            "end": 850,
+            "teachers": [
+                "Dwire,Phil"
+            ],
+            "days": [
+                5
+            ]
+        },
+        {
             "room": "006",
             "major": "DMD",
             "number": "4040",
@@ -71307,6 +71483,20 @@
             "days": [
                 1,
                 3
+            ]
+        },
+        {
+            "room": "A112",
+            "major": "COMM",
+            "number": "3520",
+            "start": 660,
+            "end": 735,
+            "teachers": [
+                "Kalnova,Svetlana"
+            ],
+            "days": [
+                2,
+                4
             ]
         },
         {

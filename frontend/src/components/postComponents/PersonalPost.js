@@ -70,8 +70,8 @@ return (
           <DeleteIcon/>
           <p>delete post</p>
       </Button>
-     
-            {post.original_poster === "Anonymous user" ? (
+            
+            {(post.original_poster === "Anonymous user") && username.isAdmin ? (
  
               <Button onClick={handleDeAnon}>
                 <ManageAccountsIcon/>

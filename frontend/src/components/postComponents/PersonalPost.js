@@ -83,17 +83,7 @@ return (
               </div>
             )}
 
-            {username.isAdmin? (
-              <div>
-              <Button onClick={handleBan}>
-                <PersonRemoveIcon/>
-                <p> ban user</p>
-              </Button>
-              </div>
-            ) : (
-              <div>         
-              </div>
-            )}
+
 
       </div>
       <div className={classes.actions}>

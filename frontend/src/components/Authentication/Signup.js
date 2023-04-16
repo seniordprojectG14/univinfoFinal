@@ -68,9 +68,9 @@ const Signup = () => {
         // We convert the data string to a buffer using `Buffer.from`
         Buffer.from(password)
       );
-      console.log("encypted data: ", encryptedData.toString("base64"));
+      //console.log("encypted data: ", encryptedData.toString("base64"));
       const b64dat = encryptedData.toString("base64")
-      console.log("Passed encryption")
+      //console.log("Passed encryption")
 
       const config = {
         headers: {

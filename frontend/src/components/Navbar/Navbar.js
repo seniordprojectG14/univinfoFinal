@@ -73,7 +73,7 @@ const Navbar = (props) => {
             <Link to="/NewPost">Add Post</Link>
           </li>
           <li>
-            <Link to="/MyPost">My Post</Link>
+            <Link to="/MyPost">My Posts</Link>
           </li>
           <li>
             <Link to="/Map">Map</Link>
@@ -138,7 +138,7 @@ const Navbar = (props) => {
               <Link to="/NewPost">Add Post</Link>
             </li>
             <li>
-              <Link to="/MyPost">My Post</Link>
+              <Link to="/MyPost">My Posts</Link>
             </li>
             <li>
               <Link to="/Map">Map</Link>

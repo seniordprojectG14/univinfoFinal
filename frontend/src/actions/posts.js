@@ -15,7 +15,7 @@ export const getPosts = () => async (dispatch) => {
       {},
       config
     );
-    console.log(JSON.stringify(data) + " data both")
+    //console.log(JSON.stringify(data) + " data both")
     dispatch({ type: FETCH_ALL, payload: data });
   } catch (error) {
     console.log(error.message);

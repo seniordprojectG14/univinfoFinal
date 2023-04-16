@@ -1,15 +1,18 @@
-import React,{useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import Card from '../ui/Card';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ChildCareIcon from '@mui/icons-material/ChildCare';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 import classes from './PostItem.module.css';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import { deletePost } from '../../actions/posts';
 import useStyles from './styles.js';
-import { makeStyles } from '@material-ui/core/styles';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { deAnon } from '../../actions/posts';
+import { useNavigate } from "react-router-dom";
+import { handleBan } from '../../api/univIndex.js';
+import { handleBreakpoints } from '@mui/system';
 
 
 
@@ -17,9 +20,15 @@ import { deAnon } from '../../actions/posts';
   const PersonalPost = ({ post, setCurrentId, user, setUser }) => {
   const dispatch = useDispatch();
   const classstyles = useStyles();
-  // const user = JSON.parse(localStorage.getItem('name'));
-  
- 
+  //const userName = JSON.parse(localStorage.getItem('name'));
+  //console.log(userName)
+
+  const navigate = useNavigate();
+  const [username, setUserName] = useState("");
+  useEffect(async () => {
+    setUserName(await JSON.parse(localStorage.getItem("userInfo")));
+  }, [navigate]);
+
 
   const handleOnSubmit = (e) =>{
     e.preventDefault();
@@ -34,28 +43,58 @@ import { deAnon } from '../../actions/posts';
     dispatch(deAnon({id: post._id}));
   }
 
+  const handleBan = (e) =>{
+    e.preventDefault();
+    console.log("BAN HAMMER SWUNG");
+    dispatch(handleBan({username: post.username}));
+  }
+
+
+
 return (
   <li className={classes.item}>
     <Card>
       <div className={classes.content}>
-        <h3>{post.title}</h3>
+        <h1><b>Username:</b> {post.username}</h1>
         <div className={classstyles.details}>
       <Typography variant="body2" color="textSecondary" component="h2">{post.max}</Typography>
       <Typography variant="body2" color="textSecondary" component="h2">{post.max}</Typography>
       <Typography variant="body2" color="textSecondary" component="h2">{post.min}</Typography>
       <Typography variant="body2" color="textSecondary" component="h2">{post.wanttolive}</Typography>
           </div>
-        <p>{post.description}</p>
+        <p><b>Post Content:</b> {post.description}</p>
+        
       </div>
       <div className={classes.actions}>
       <Button onClick={handleOnSubmit}>
           <DeleteIcon/>
           <p>delete post</p>
       </Button>
-      <Button onClick={handleDeAnon}>
-        <DeleteIcon/>
-        <p>de-anon post</p>
-      </Button>
+     
+            {post.original_poster === "Anonymous user" ? (
+ 
+              <Button onClick={handleDeAnon}>
+                <ManageAccountsIcon/>
+                <p>de-anon post</p>
+              </Button>
+      
+            ) : (
+              <div>         
+              </div>
+            )}
+
+            {username.isAdmin? (
+              <div>
+              <Button onClick={handleBan}>
+                <PersonRemoveIcon/>
+                <p> ban user</p>
+              </Button>
+              </div>
+            ) : (
+              <div>         
+              </div>
+            )}
+
       </div>
       <div className={classes.actions}>
       <p variant="body2">{moment(post.createdAt).fromNow()}</p>

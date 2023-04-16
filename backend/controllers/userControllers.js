@@ -126,6 +126,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       username: user.username,
       isAdmin: user.isAdmin,
+      isMod: user.isMod,
       pic: user.pic,
       token: generateToken(user._id),
     });
@@ -151,6 +152,7 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       username: user.username,
       isAdmin: user.isAdmin,
+      isMod: user.isMod,
       pic: user.pic,
       token: generateToken(user._id),
     });
@@ -179,6 +181,29 @@ const resetPassword = asyncHandler(async (req, res) => {
  });
 
 
+//@description     Delete the user
+//@route           POST /api/users/delete
+//@access          Public
+const deleteUser = asyncHandler(async (req, res) => {
+  const { username } = req.body;
+
+  const user = await User.findOne({ username });
+  /*
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      username: user.username,
+      isAdmin: user.isAdmin,
+      pic: user.pic,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid username or Password");
+  }*/
+  console.log(user)
+});
 
 
 
@@ -186,5 +211,5 @@ const resetPassword = asyncHandler(async (req, res) => {
 
 
 
-export {allUsers, registerUser, authUser, resetPassword};
+export {allUsers, registerUser, authUser, resetPassword,deleteUser};
 // module.exports = { allUsers, registerUser, authUser };

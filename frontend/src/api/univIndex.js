@@ -1,5 +1,5 @@
 
-import { FETCH_ALL, CREATE, DELETE, LIKE, disLIKE, ADD_USERNAME, REMOVE_USERNAME, UPDATE_POST} from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, DELETE, LIKE, disLIKE, ADD_USERNAME, REMOVE_USERNAME, UPDATE_POST,DELETE_USER} from '../constants/actionTypes';
 import axios from 'axios';
 
 
@@ -27,12 +27,7 @@ export const signUp = (formData) => API.post('/user/signup', formData);
 export const fetchUsers = () => API.get('/user');
 export const likePost = (id) => axios.patch(`${url}/${id}/likePost`);
 
-
-
-
-
-
-
+export const handleBan = (username) => API.post('/api/user/deleteUser',username);
 
 
 
@@ -40,7 +35,7 @@ export const dislikePost = (id) => axios.patch(`${url}/${id}/dislikePost`);
 export const deletePost = (id) =>{
   
   axios.delete(`${url}/${id}`);
-  console.log("here");
+  //console.log("here");
 } 
 
 export const resetPassword = (username) => {

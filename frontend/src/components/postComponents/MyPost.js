@@ -15,9 +15,9 @@ const MyPost = ({ currentId,setCurrentId, user, setUser }) => {
 
   useEffect(() => {
     posts.map((post) => {
-      console.log("here");
-      console.log("Username" + JSON.stringify(user?.username));
-      if((post?.username === user?.username) || (user?.isAdmin === true)){
+      //console.log("here");
+      //console.log("Username" + JSON.stringify(user?.username));
+      if((post?.username === user?.username) || (user?.isAdmin === true) || (user?.isMod === true)){
           setCounter(true);    
     }
     }
@@ -40,10 +40,10 @@ return (
   { counter ? (
 <ul className={classes.list}>
   {posts.map((post) => {
-    console.log("here");
-    console.log("Username" + JSON.stringify(user?.username));
-    console.log("is Admin?" + JSON.stringify(user?.isAdmin));
-      if((post?.username === user?.username) || (user?.isAdmin === true)){
+    //console.log("here");
+    //console.log("Username" + JSON.stringify(user?.username));
+    //console.log("is Admin?" + JSON.stringify(user?.isAdmin));
+      if((post?.username === user?.username) || (user?.isAdmin === true) || (user?.isMod === true)){
           return( <PersonalPost post={post}/>)
   }
   }

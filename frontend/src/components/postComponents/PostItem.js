@@ -127,22 +127,27 @@ const PostItem = ({ post, setCurrentId, user, setUser, proplist }) => {
           title={post?.photo}
         />
         <div className={classes.content}>
-          <h3>address:{post?.address}</h3>
+          <h3><b>Post Address:</b> {post?.address}</h3>
           <div className={classstyles.details}>
-            <div style={{ textalign: "center", paddingLeft: "37%" }}>
-              <img
-                src={post?.photos[0]}
-                height={"200px"}
-                width={"300px"}
-                alt="BigCo Inc. logo"
-              />
-            </div>
+
+          {post?.photos[0]? (
+                              <div style={{ textalign: "center", paddingLeft: "37%" }}>
+                              <img
+                                src={post?.photos[0]}
+                                height={"200px"}
+                                width={"300px"}
+                                alt=""/>
+                              </div>         
+                            ) : (
+                              <div>
+                              </div>      
+                            )}
 
             <Typography variant="body2" color="textSecondary" component="h2">
-              username:{post?.original_poster}
+              <b>Posted by: </b>{post?.original_poster}
             </Typography>
           </div>
-          <p>description: {post?.description}</p>
+          <p><b>Post Body: </b>{post?.description}</p>
         </div>
         <div className={classes.actions}>
           {post?.postListLikeUsernames.includes(user?.username) && (
@@ -234,7 +239,7 @@ const PostItem = ({ post, setCurrentId, user, setUser, proplist }) => {
               );
             }}
           >
-            misinformation:{post?.postListMissUsernames?.length}
+            misinformation: {post?.postListMissUsernames?.length}
           </Button>
         </div>
       </Card>

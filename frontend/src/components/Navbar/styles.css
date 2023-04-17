@@ -1,0 +1,163 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  text-decoration: none;
+  list-style: none;
+}
+
+:root {
+  --bg-color: #222327;
+  --text-color: #fff;
+  --main-color: #29fd53;
+}
+
+/* .space {
+  height: 130px;
+  position: relative;
+} */
+
+header {
+  position: relative;
+  width: 100%;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  padding: 28px 12%;
+  transition: all 0.5s ease;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar {
+  display: flex;
+}
+
+.navbar li {
+  color: black;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 5px 0;
+  margin: 0px 30px;
+  transition: all 0.5s ease;
+}
+
+.navbar li:hover {
+  color: cornflowerblue;
+}
+
+.main {
+  /* display: flex; */
+  align-items: center;
+}
+
+.main button {
+  margin-bottom: 25px;
+  margin-left: 10px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: all 0.5s ease;
+}
+
+.main a {
+  margin-right: 25px;
+  margin-left: 10px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: all 0.5s ease;
+}
+
+.main a:hover {
+  color: cornflowerblue;
+}
+
+#menu-icon {
+  font-size: 35px;
+  color: black;
+  cursor: pointer;
+  z-index: 10001;
+  display: none;
+}
+
+.dropdown li {
+  font-size: 34px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.dropdown li::before {
+  background-color: paleturquoise;
+  border-radius: 0.25rem;
+  content: "";
+  display: block;
+  height: 0.25rem;
+  width: 42px;
+  /* margin-bottom: 1.25rem; */
+}
+
+#logout {
+  color: rgb(196, 45, 45);
+  font-weight: bold;
+}
+
+#login {
+  color: rgb(56, 56, 159);
+  font-weight: bold;
+}
+
+@media (max-width: 1500px) {
+  header {
+    padding: 14px 2%;
+  }
+  .navbar li {
+    padding: 5px 0;
+    margin: 0px 20px;
+  }
+}
+
+@media (max-width: 800px) {
+  #menu-icon {
+    display: block;
+  }
+  .navbar {
+    position: absolute;
+    top: 100%;
+    right: -100%;
+    width: 270px;
+    height: 29vh;
+    background-color: cornflowerblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 10px;
+    transition: all 0.5 ease;
+  }
+  .navbar li {
+    display: block;
+    margin: 12px 0;
+    padding: 0px 25px;
+    transition: all 0.5s ease;
+  }
+  .navbar li:hover {
+    color: cornflowerblue;
+    transform: translateY(5px);
+  }
+  .navbar.open {
+    right: 2%;
+  }
+  #authButton {
+    display: none;
+  }
+}

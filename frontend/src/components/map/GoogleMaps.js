@@ -307,7 +307,7 @@ const GoogleMaps = ({ currentId, setCurrentId }) => {
 
                          }}>{item.name}</span>
                      </React.Fragment>} lat={item.lat} lng={item.lng}>
-                     <img src={p_icon} alt="Ignore me?" height="25" width="25"
+                     <img src={p_icon} alt="Parking Lot" height="25" width="25"
 
                      />
                  </Tooltip>
@@ -322,7 +322,7 @@ const GoogleMaps = ({ currentId, setCurrentId }) => {
 
                          }}>{item.name}</span>
                      </React.Fragment>} lat={item.lat} lng = {item.lng}>
-                     <img src={h_icon} alt="Ignore me?" height="25" width="25"
+                     <img src={h_icon} alt="Residence Hall" height="25" width="25"
 
                      />
                  </Tooltip>
@@ -337,7 +337,7 @@ const GoogleMaps = ({ currentId, setCurrentId }) => {
 
                              }}>{item.menu}</span>
                          </React.Fragment>}>
-                         <img src={d_icon} alt="Girl in a jacket" height="25" width="25"
+                         <img src={d_icon} alt="Dining Hall" height="25" width="25"
 
                          />
                      </Tooltip>
@@ -349,7 +349,7 @@ const GoogleMaps = ({ currentId, setCurrentId }) => {
                          <span style={{ 'whiteSpace': "pre-line"}}>{item.message}</span>
                      </React.Fragment>} lat={item.X} lng={item.Y}
                          resizeHide={false}>
-                         <img src={img_src} alt="Girl in a jacket" height="25" width="25"
+                         <img src={img_src} alt="Lecture Hall" height="25" width="25"
              
                          />
                      </Tooltip>)
